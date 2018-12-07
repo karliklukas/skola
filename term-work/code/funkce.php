@@ -262,6 +262,9 @@ function vypisZbozi(){
             }elseif($radit == "nejdrazsi"){
                 $razeni = "cena";
                 $zpusob="DESC";
+            }else{
+                $razeni = "id";
+                $zpusob="DESC";
             }
         }
     } else {
@@ -328,7 +331,9 @@ function vypisZbozi(){
 //                                echo substr($row['popis'], 0, 150);
 //                                echo "...";
 //                                }else{
+                echo"<p class='popisZbozi'>";
                 echo $row['popis'];
+                echo"</p>";
 //                                }
 
                 echo"</div>";
@@ -472,5 +477,62 @@ function sleva() {
         }
     }
 }
+
+
+function vypisZboziUprava() {
+    $db = spojeni();
+
+    if (isset($_GET['r'])) {
+        if (!preg_match("/^[a-z]/", $_GET['r'])) {
+            $razeni = "nazev";
+            $zpusob="ASC";
+        } else {
+            $radit = $_GET['r'];
+            if ($radit == "n") {
+                $razeni = "nazev";
+                $zpusob="ASC";
+            }elseif ($radit == "m") {
+                $razeni = "mnozstvi";
+                $zpusob="ASC";
+            }elseif($radit == "c"){
+                $razeni = "cena";
+                $zpusob="ASC";
+            }elseif($radit == "s"){
+                $razeni = "sleva";
+                $zpusob="DESC";
+            }else{
+                $razeni = "nazev";
+                $zpusob="ASC";
+            }
+        }
+    } else {
+        $razeni = "nazev";
+        $zpusob="ASC";
+    }
+
+    $sql = "SELECT * FROM zbozi ORDER BY $razeni $zpusob";
+
+
+    if ($data = $db->query($sql)) {
+        if ($data->num_rows > 0) {
+            echo "<div class='obalTable'><table class='table1'>";
+            echo "<tr> <th><a href='upravaZbozi.php?r=n'>Název</a></th> <th><a href='upravaZbozi.php?r=c'>Cena</a></th>
+    <th><a href='upravaZbozi.php?r=m'>Množství</a></th> <th><a href='upravaZbozi.php?r=s'>Sleva</a></th> <th></th><th></th></tr>";
+
+            while ($row = $data->fetch_assoc()) {
+                echo "<tr><td>{$row['nazev']}</td>  <td>{$row['cena']}</td> <td>{$row['mnozstvi']}</td> <td>{$row['sleva']}</td> 
+                        <td><a href='smazani.php?id={$row['id']}'>Smazat</a></td> <td><a href='smazani.php?id={$row['id']}'>Mnozstvi</a></td>
+                      </tr>";
+
+            }
+
+
+            echo "</table></div>";
+        } else
+            echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
+    }
+
+}
+
 
 ?>

@@ -22,7 +22,7 @@
                     <ul>
                         <li><a href="zbozi.php">Nabídka</a></li>
                         <li><a href="sleva.php">Zlevnit zboží</a></li>
-                        <li><a href="mnozstvi.php">Doplnit zboží</a></li>
+                        <li><a href="upravaZbozi.php">Úprava zboží</a></li>
                         <li><a href="#">Přidat zboží</a></li>
                     </ul>
                 </li>

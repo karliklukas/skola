@@ -4,28 +4,12 @@ include "./funkce.php";
 $db=spojeni();
 Menu();
 ?>
-<style>
 
-.obalCisel{
-    width: 100%;
-    margin-top: 3vw;
-    text-align: center;
-    font-size: 1.5vw;
-    color: black;
-}
-a{
-    color: black;
-}
-.stranky{
-    font-weight: normal;
-}
-.aktualStr{
-    color:dodgerblue;
-}
-    </style>
        
+    <div class="obalTlZbozi">
+    <a href="zbozi.php?r=abecedne" class="tlacitko2">Abecedne</a><a href="zbozi.php?r=nejlevnejsi" class="tlacitko2">Nejlevnejsi</a><a href="zbozi.php?r=nejdrazsi" class="tlacitko2">Nejdrazsi</a>
+</div>
 
-    <a href="zbozi.php?r=abecedne">Abecedne</a><a href="zbozi.php?r=nejlevnejsi">Nejlevnejsi</a><a href="zbozi.php?r=nejdrazsi">Nejdrazsi</a>
             <?php
             
             vypisZbozi();

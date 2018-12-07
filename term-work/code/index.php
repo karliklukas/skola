@@ -13,9 +13,7 @@ Menu();
                     per inceptos hymenaeos. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
                     rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Fusce wisi.
                     Maecenas sollicitudin. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Fusce suscipit libero eget elit. Nam
-                    sed tellus id magna elementum tincidunt. Nunc auctor. Quisque tincidunt scelerisque libero. Duis pulvinar. Duis bibendum,
-                    lectus ut viverra rhoncus, dolor nunc faucibus libero, eget facilisis enim ipsum id lacus. In rutrum. Integer imperdiet lectus
-                    quis justo. Nullam rhoncus aliquam metus.
+                    sed tellus id magna elementum tincidunt. Nunc auctor. Quisque tincidunt scelerisque libero.
                     <br><a href="#"><button class="tlacitko">ČÍST VÍCE</button></a>
                 </div>
             </div>
@@ -26,17 +24,17 @@ Menu();
         <div class="parent">
             <a href="registrace.php" >
                 <div id="jedna" class="baby">
-                    <img src="images/intranet4.png" class="icon1" id="ikona">
+                    <img src="images/registrace.png" class="icon1" id="ikona">
                     <p class="text">REGISTRACE</p>
                 </div></a>
             <a href="prihlaseni.php" >
                 <div id="dva" class="baby">
-                    <img src="images/jidlo.png" class="icon2" id="ikona">
+                    <img src="images/login.png" class="icon2" id="ikona">
                     <p class="text">PŘIHLÁŠENÍ</p>
                 </div></a>
 
             <a href="zbozi.php"><div id="tri" class="baby">
-                    <img src="images/rozvrh.png" class="icon3" id="ikona">
+                    <img src="images/kosik.png" class="icon3" id="ikona">
                     <p class="text">NABÍDKA ZBOŽÍ</p>
                 </div></a>
 
@@ -69,7 +67,7 @@ Menu();
           <p><a href="mailto:kancelar@st.cz" class="mailto">kancelar@st.cz</a></p></div>
             
             <div class="mapa">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1281.40088678855!2d15.766640422808036!3d50.03381009849956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470dcc95e3bfb037%3A0x5df5b1e51080fef2!2zbsOhbS4gxIxzLiBsZWdpw60sIDUzMCAwMiBQYXJkdWJpY2UgSQ!5e0!3m2!1scs!2scz!4v1542548497802" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1281.40088678855!2d15.766640422808036!3d50.03381009849956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470dcc95e3bfb037%3A0x5df5b1e51080fef2!2zbsOhbS4gxIxzLiBsZWdpw60sIDUzMCAwMiBQYXJkdWJpY2UgSQ!5e0!3m2!1scs!2scz!4v1542548497802" frameborder="0" style="border:0" allowfullscreen class="mapa_rozmery"></iframe>
             </div>
         </div> 
 <?php
