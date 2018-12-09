@@ -8,5 +8,5 @@ Menu();
 
 echo "UZIVATEL";
 
-
+include './body/footer.php';
 ?>

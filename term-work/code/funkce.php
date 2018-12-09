@@ -118,10 +118,12 @@ function Menu(){
      $dotaz="select * from uzivatele where email='{$_SESSION["login"]}' limit 1";
      $data=mysqli_query($db,$dotaz);
      $zaznam=mysqli_fetch_array($data);
-     if($zaznam["opravneni"]=="0"){include 'header_user.php';}
-     else if($zaznam["opravneni"]=="1"){include 'header_admin.php';}
+     if($zaznam["opravneni"]=="0"){
+         include './body/header_user.php';}
+     else if($zaznam["opravneni"]=="1"){
+         include './body/header_admin.php';}
 } else {    
-     include 'header.php';
+     include './body/header.php';
 }
 }
 
@@ -444,6 +446,35 @@ function vypisZboziSleva(){
                     echo "<p class='hlaska'>Není tu zboží.</p>";
                 }	
 	}
+
+function vypisZboziMnozstvi(){
+    $db= spojeni();
+
+    if (isset($_GET['id'])) {
+        if (!preg_match("/^[0-9]/", $_GET['id'])) {
+            return;
+        }
+
+    $sql="SELECT * FROM zbozi WHERE id = {$_GET['id']} ORDER BY `nazev` ASC";
+    if($data = $db->query($sql)){
+        if($data->num_rows > 0)
+        {
+            while($row = $data->fetch_assoc())
+            {
+                echo"<br>";
+                echo "<p class='hlaska'><b>Zboží:</b> {$row['nazev']} <b>Staré množství:</b> $row[mnozstvi] </p>";
+
+            }
+
+
+
+        } else
+            echo "<p class='hlaska'>Není tu zboží.</p>";
+    }else{
+        echo "<p class='hlaska'>Není tu zboží.</p>";
+    }
+}
+}
         
 function sleva() {
     $db = spojeni();
@@ -471,6 +502,31 @@ function sleva() {
                 $stmt->bind_param("i", $sleva);
                 $stmt->execute();
                 $id = $stmt->insert_id;
+            }else{
+                echo "CHYBA";
+            }
+        }
+    }
+}
+
+function mnozstvi() {
+    $db = spojeni();
+
+    if (isset($_POST["sended"])) {
+        if (empty($_POST["mnozstvi"])) {
+            echo "Vyplň formulář";
+        } else {
+            if (!preg_match("/^[0-9]/", $_GET['id'])) {
+                return;
+            }
+            $id = $_GET['id'];
+            $mn = $_POST["mnozstvi"];
+            $sql = "UPDATE zbozi SET mnozstvi = ? WHERE id = ".$id.";";
+            if ($stmt = $db->prepare($sql)) {
+                $stmt->bind_param("i", $mn);
+                $stmt->execute();
+                $id = $stmt->insert_id;
+                header("Location: upravaZbozi.php");
             }else{
                 echo "CHYBA";
             }
@@ -521,7 +577,7 @@ function vypisZboziUprava() {
 
             while ($row = $data->fetch_assoc()) {
                 echo "<tr><td>{$row['nazev']}</td>  <td>{$row['cena']}</td> <td>{$row['mnozstvi']}</td> <td>{$row['sleva']}</td> 
-                        <td><a href='smazani.php?id={$row['id']}'>Smazat</a></td> <td><a href='smazani.php?id={$row['id']}'>Mnozstvi</a></td>
+                        <td><a href='smazani.php?id={$row['id']}'>Smazat</a></td> <td><a href='mnozstvi.php?id={$row['id']}'>Mnozstvi</a></td>
                       </tr>";
 
             }

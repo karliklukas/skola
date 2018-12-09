@@ -15,5 +15,5 @@ vypisZboziUprava();
 
 
 <?php
-include 'footer.php';
+include './body/footer.php';
 ?>

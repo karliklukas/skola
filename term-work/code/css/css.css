@@ -140,7 +140,9 @@ li > a:only-child:after { content: ''; }
     width: 10vw;
     padding: 0.8vw;
 }
-
+.hlaska{
+    text-align: center;
+}
 
 @media all and (max-width : 768px) {
 #logo {
