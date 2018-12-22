@@ -18,13 +18,21 @@ function smazZaka($id){
     } else {
         echo "Není";
     }*/
-
-    $sql1 = "DELETE FROM zbozi WHERE zbozi.id = $id";
+    $sql1 = "DELETE FROM cena WHERE id_zbozi = $id";
     if($db->query($sql1) === TRUE){
+        echo "Bylo odstraněno";
+    } else {
+        echo "Cena s id $id u nás nemáme :/";
+    }
+
+    $sql2 = "DELETE FROM zbozi WHERE zbozi.idzbozo = $id";
+    if($db->query($sql2) === TRUE){
         echo "Bylo odstraněno";
     } else {
         echo "Zbozi s id $id u nás nemáme :/";
     }
+
+
 
 }
 

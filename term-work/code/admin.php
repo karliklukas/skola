@@ -13,6 +13,10 @@ Menu();
     <textarea col="40" rows="7" name="popis" placeholder="Stručný popis produktu" class="textarea"></textarea>
     <input type="number" name="mnozstvi"  min="0" placeholder="Množství" required >
     <input type="number" name="cena"  min="0" placeholder="Cena (11.5/20/150.7)" step="0.01"  required >
+        <?php
+            vypisKategorie();
+            vypisVyrobce();
+        ?>
     <label class="label">Vyberte obrázky k nahrání:</label>
     <br><div class="fileUpload">
     <span>Zvolit soubor</span>

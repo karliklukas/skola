@@ -144,6 +144,15 @@ li > a:only-child:after { content: ''; }
     text-align: center;
 }
 
+.nahledZbozi{
+    width: 40%;
+    margin: 0 auto;
+
+}
+.fotoNahled{
+    margin-bottom: 3vw;
+}
+
 @media all and (max-width : 768px) {
 #logo {
   display: block;
@@ -600,6 +609,7 @@ input[type=submit]:hover{
     resize: none;
     margin-bottom: 0.7vw;
     margin-top: 0.7vw;
+    font-size: medium;
 }
 
 .label{
@@ -914,6 +924,7 @@ input[type=submit] {
 .textarea{
     width: 25%;
     margin-left: 37.5%;
+    font-size: inherit;
 }
 .nadpis_vedlejsi_stranka{
     font-size: 2.7vw; 
@@ -943,13 +954,13 @@ label{
     }
     .foto1{
         width: 100%;
-        height: 20.5vw;
+        height: 13.5vw;
         overflow: hidden;
     }
     .cln1{
         height: 7vw;
         width: 95%;
-        margin-top: -5vw;
+        margin-top: 3vw;
         text-align: justify;
         padding-left: 0.3vw;
         padding-right: 0.3vw;

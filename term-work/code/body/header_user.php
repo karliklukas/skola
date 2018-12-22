@@ -38,7 +38,7 @@
                 </li>
                 <li><a href="#">Blog</a></li>
                 <li><a href="#">Submit</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="kosik.php">Košík</a></li>
                 <li class="posledni"><a href="./odhlaseni.php">Odhlásit</a></li>
             </ul>
         </nav>
