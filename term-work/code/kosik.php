@@ -5,23 +5,7 @@ error_reporting(E_ERROR | E_PARSE);
 $db = spojeni();
 Menu();
 
-if ($_GET["action"] == "add") {
-    if (array_key_exists($_GET["id"], $_SESSION['cart'])) {
-        $_SESSION['cart'][$_GET['id']]['quantity']++;
-    } else {
-        $_SESSION['cart'][$_GET['id']];
-        $_SESSION['cart'][$_GET['id']]['quantity'] = 1;
-    }
-    header("Location:./kosik.php");
-} else if ($_GET["action"] == "remove") {
-    if (array_key_exists($_GET["id"], $_SESSION['cart'])) {
-        $_SESSION['cart'][$_GET['id']]['quantity']--;
-        if ($_SESSION['cart'][$_GET['id']]['quantity'] == 0) {
-            unset($_SESSION['cart'][$_GET['id']]);
-        }
-    }
-    header("Location:./kosik.php");
-} else if ($_GET["action"] == "delete") {
+if ($_GET["action"] == "delete") {
     unset($_SESSION['cart'][$_GET['id']]);
     header("Location:./kosik.php");
 }

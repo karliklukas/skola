@@ -153,6 +153,8 @@ li > a:only-child:after { content: ''; }
     margin-bottom: 3vw;
 }
 
+
+
 @media all and (max-width : 768px) {
 #logo {
   display: block;
@@ -908,6 +910,11 @@ input[type=text], [type=password], [type=email], [type=number]{
     border-radius: 0.3vw;
     margin-left: 37.5%;
 }
+.dvaBloky  input[type=text], .dvaBloky [type=number]{
+    width: 50%;
+    margin-left: 25%;
+    }
+
 select{
     width: 25%;
     padding: 0.9vw 0.9vw;
@@ -919,6 +926,11 @@ input[type=submit] {
     padding: 0.9vw 0.9vw;
     border-radius: 0.3vw;
     margin-left: 37.5%;
+}
+
+.dvaBloky input[type=submit] {
+    width: 50%;
+    margin-left: 25%;
 }
 
 .textarea{
@@ -1050,5 +1062,9 @@ label{
 
     }
 
+    .dvaBloky {
+        width: 50%;
+        float: left
+    }
 }
 

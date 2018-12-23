@@ -175,7 +175,7 @@ function pridaniZbozi() {
                 $temp = $_FILES["files"]["tmp_name"][$key];
                 $name = $_FILES["files"]["name"][$key];
 
-
+                $pripona = substr($name, strpos($name,"."));
 
                 if (!is_dir($UploadFolder)) {
                     mkdir($UploadFolder);
@@ -205,7 +205,7 @@ function pridaniZbozi() {
                 }
 
                 if ($UploadOk == true) {
-                    move_uploaded_file($temp, $UploadFolder . "/" . $name);
+                    move_uploaded_file($temp, $UploadFolder . "/" . $id ."".$pripona);
                     array_push($uploadedFiles, $name);
                 }
             }
@@ -245,8 +245,8 @@ function vypisZbozi(){
     } else {
         $strana = 1;
     }
-    $naStranu = 3;
-    $pocetStranData = "SELECT COUNT(*) FROM `zbozi`";
+    $naStranu = 6;
+    $pocetStranData = "SELECT COUNT(*) FROM `zbozi` WHERE `zbozi`.`platnost`=1";
     $dataS = mysqli_query($db, $pocetStranData);
     $stran = mysqli_fetch_array($dataS);
     $pocet = ($strana - 1) * $naStranu;
@@ -255,7 +255,7 @@ function vypisZbozi(){
         if ($_GET['st'] > $pocetStran) {
             $strana = 1;
             $pocet = 1;
-            $naStranu = 3;
+            $naStranu = 6;
         }
     }
 
@@ -288,7 +288,7 @@ function vypisZbozi(){
 
 
     $sql = "SELECT `zbozi`.`idzbozi` AS id,`zbozi`.`nazev`, (SELECT cena.cena FROM cena WHERE zbozi_id=`zbozi`.`idzbozi` ORDER BY cena.datum DESC LIMIT 1) AS cena , `zbozi`.`mnozstvi`, `zbozi`.popis
-            FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` GROUP BY `zbozi`.`nazev` ORDER BY $razeni $zpusob LIMIT $pocet, $naStranu";
+            FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` WHERE `zbozi`.`platnost`=1 GROUP BY `zbozi`.`nazev` ORDER BY $razeni $zpusob LIMIT $pocet, $naStranu";
 
     echo "<div class='cl'>";
     if ($data = $db->query($sql)) {
@@ -581,6 +581,9 @@ function vypisZboziUprava() {
             }elseif($radit == "c"){
                 $razeni = "cena";
                 $zpusob="ASC";
+            }elseif($radit == "p"){
+                $razeni = "platnost";
+                $zpusob="DESC";
             }else{
                 $razeni = "nazev";
                 $zpusob="ASC";
@@ -591,7 +594,7 @@ function vypisZboziUprava() {
         $zpusob="ASC";
     }
 
-    $sql = "SELECT `zbozi`.`idzbozi` AS id, `zbozi`.`nazev`, (SELECT cena.cena FROM cena WHERE zbozi_id=`zbozi`.`idzbozi` ORDER BY cena.datum DESC LIMIT 1) AS cena , `zbozi`.`mnozstvi`
+    $sql = "SELECT `zbozi`.`idzbozi` AS id, `zbozi`.`nazev`, (SELECT cena.cena FROM cena WHERE zbozi_id=`zbozi`.`idzbozi` ORDER BY cena.datum DESC LIMIT 1) AS cena , `zbozi`.`mnozstvi`,`zbozi`.`platnost`
 FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` GROUP BY `zbozi`.`nazev` ORDER BY $razeni $zpusob";
 
 
@@ -599,7 +602,7 @@ FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` GROUP BY `zbozi
         if ($data->num_rows > 0) {
             echo "<div class='obalTable'><table class='table1'>";
             echo "<tr> <th><a href='upravaZbozi.php?r=n'>Název</a></th> <th><a href='upravaZbozi.php?r=c'>Cena</a></th>
-    <th><a href='upravaZbozi.php?r=m'>Množství</a></th> <th></th> <th></th></tr>";
+    <th><a href='upravaZbozi.php?r=m'>Množství</a></th><th><a href='upravaZbozi.php?r=p'>Platnost</a></th> <th></th> <th></th></tr>";
 
             while ($row = $data->fetch_assoc()) {
 
@@ -616,10 +619,22 @@ FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` GROUP BY `zbozi
                 if($rez == ''){
                     $rez = 0;
                 }
+                if($row['platnost']==1){
+                    $pl = "Platné";
+                }else{
+                    $pl = "Neplatné";
+                }
+
+                echo "<tr><td><a href='nahledZbozi.php?id={$row['id']}'>{$row['nazev']}</a></td>  <td>{$row['cena']}</td> <td>{$row['mnozstvi']} ({$rez} rezervovano)</td> <td>{$pl}</td>";
+
+                if($row['platnost']==1){
+                    echo "<td><a href='smazani.php?id={$row['id']}'>Smazat</a></td>";
+                }else{
+                    echo "<td><a href='obnov.php?id={$row['id']}'>Obnov</a></td>";
+                }
 
 
-                echo "<tr><td>{$row['nazev']}</td>  <td>{$row['cena']}</td> <td>{$row['mnozstvi']} ({$rez} rezervovano)</td> 
-                        <td><a href='smazani.php?id={$row['id']}'>Smazat</a></td> <td><a href='mnozstvi.php?id={$row['id']}'>Mnozstvi</a></td>
+                echo "<td><a href='mnozstvi.php?id={$row['id']}'>Mnozstvi</a></td>
                       </tr>";
 
             }
@@ -945,7 +960,310 @@ GROUP BY `faktury`.`id`";
 
 }
 
+function pridatKategorie() {
+    $db = spojeni();
+    if (isset($_POST["sendedK"])) {
+        if (empty($_POST["nazev"])) {
+            echo "Vyplň formulář";
+        } else {
+            $nazev = $_POST["nazev"];
 
+
+            $sql5 = "INSERT INTO `kategorie` (`nazev`) VALUES (?);";
+            if ($stmt = $db->prepare($sql5)) {
+                $stmt->bind_param("s", $nazev);
+                $stmt->execute();
+
+                echo "<p class='hlaska'>Kategorie vlozena.</p>";
+            }else {
+                echo "<p class='hlaska'>Chyba</p>";
+            }
+        }
+    }
+}
+
+function pridatVyrobce() {
+    $db = spojeni();
+    if (isset($_POST["sendedV"])) {
+        if (empty($_POST["nazev"]) || empty($_POST["mesto"]) || empty($_POST["adresa"]) || empty($_POST["ico"])) {
+            echo "Vyplň formulář";
+        } else {
+            $nazev = $_POST["nazev"];
+            $mesto = $_POST["mesto"];
+            $adresa = $_POST["adresa"];
+            $ico = $_POST["ico"];
+
+
+            $sql5 = "INSERT INTO `vyrobce` (`nazev`, `mesto`, `adresa`, `ico`) VALUES (?,?,?,?);";
+            if ($stmt = $db->prepare($sql5)) {
+                $stmt->bind_param("sssi", $nazev, $mesto, $adresa, $ico);
+                $stmt->execute();
+
+                echo "<p class='hlaska'>Výrobce vlozen.</p>";
+            }else {
+                echo "<p class='hlaska'>Chyba</p>";
+            }
+
+        }
+    }
+}
+
+function smazZbozi(){
+    $db = spojeni();
+
+    if (isset($_GET['id'])) {
+        if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+            return;
+        }
+
+        $sql = "UPDATE `zbozi` SET `platnost` = 0 WHERE `zbozi`.`idzbozi`= {$_GET['id']}";
+        if ($stmt = $db->prepare($sql)) {
+            $stmt->execute();
+        } else {
+            echo "CHYBA";
+        }
+    }
+}
+
+function obnovZbozi(){
+    $db = spojeni();
+
+    if (isset($_GET['id'])) {
+        if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+            return;
+        }
+
+        $sql = "UPDATE `zbozi` SET `platnost` = 1 WHERE `zbozi`.`idzbozi`= {$_GET['id']}";
+        if ($stmt = $db->prepare($sql)) {
+            $stmt->execute();
+        } else {
+            echo "CHYBA";
+        }
+    }
+}
+
+function vypisZboziSmazane(){
+    $db = spojeni();
+
+    if (isset($_GET['st'])) {
+        if (!preg_match("/^[0-9]+$/", $_GET['st'])) {
+            $strana = 1;
+        } else {
+            $strana = $_GET['st'];
+        }
+    } else {
+        $strana = 1;
+    }
+    $naStranu = 6;
+    $pocetStranData = "SELECT COUNT(*) FROM `zbozi` WHERE `zbozi`.`platnost`=0";
+    $dataS = mysqli_query($db, $pocetStranData);
+    $stran = mysqli_fetch_array($dataS);
+    $pocet = ($strana - 1) * $naStranu;
+    $pocetStran = ceil($stran[0] / $naStranu);
+    if (isset($_GET['st'])) {
+        if ($_GET['st'] > $pocetStran) {
+            $strana = 1;
+            $pocet = 1;
+            $naStranu = 6;
+        }
+    }
+
+
+    if (isset($_GET['r'])) {
+        if (!preg_match("/^[a-z]+$/", $_GET['r'])) {
+            $razeni = "id";
+            $zpusob="DESC";
+        } else {
+            $radit = $_GET['r'];
+            if ($radit == "abecedne") {
+                $razeni = "nazev";
+                $zpusob="ASC";
+            }elseif ($radit == "nejlevnejsi") {
+                $razeni = "cena";
+                $zpusob="ASC";
+            }elseif($radit == "nejdrazsi"){
+                $razeni = "cena";
+                $zpusob="DESC";
+            }else{
+                $razeni = "id";
+                $zpusob="DESC";
+            }
+        }
+    } else {
+        $razeni = "id";
+        $zpusob="DESC";
+    }
+
+
+
+    $sql = "SELECT `zbozi`.`idzbozi` AS id,`zbozi`.`nazev`, (SELECT cena.cena FROM cena WHERE zbozi_id=`zbozi`.`idzbozi` ORDER BY cena.datum DESC LIMIT 1) AS cena , `zbozi`.`mnozstvi`, `zbozi`.popis
+            FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` WHERE `zbozi`.`platnost`=0 GROUP BY `zbozi`.`nazev` ORDER BY $razeni $zpusob LIMIT $pocet, $naStranu";
+
+    echo "<div class='cl'>";
+    if ($data = $db->query($sql)) {
+        if ($data->num_rows > 0) {
+
+            while ($row = $data->fetch_assoc()) {
+                echo "<div class='article'>";
+                echo "<div class='foto1'>";
+
+                $nazevSlozky = "images/obrazkyZbozi/" . $row['id'];
+                if (is_dir($nazevSlozky)) {
+                    $slozka = opendir($nazevSlozky);
+                    for ($i = 0; $i < 1; $i++) {
+                        $files = scandir($nazevSlozky);
+                        $pocetSoub = count($files);
+                        while ($nazevSouboru = readdir($slozka)) {
+                            if ($nazevSouboru != "." && $nazevSouboru != ".." && $nazevSouboru != "nahledy" && $nazevSouboru != "thumbs.db" && $nazevSouboru != "Thumbs.db") {
+
+                                echo "<img src='$nazevSlozky/$nazevSouboru' alt='' class='zkft'>";
+                                break;
+                            } else if ($pocetSoub <= 2) {
+
+                                $odkaz = "images/1.jpg";
+                                echo "<img src='$odkaz' alt='' class='zkft'>";
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                echo "</div>";
+
+                /*if ($row['sleva'] != 0) {
+                    $text = "– zlevněno " . $row['sleva'] . "%";
+                    $cenaPred = ", (cena před " . $row['cena'] . " Kč)";
+                    $cena = $row['cena'] - $row['cena'] / $row['sleva'];
+                } else {
+                    $text = "";
+                    $cena = $row['cena'];
+                    $cenaPred = "";
+                }*/
+
+                $sqlCena = "SELECT SUM(`objednavky`.`mnozstvi`) AS rez
+                            FROM `objednavky` JOIN `faktury` ON `objednavky`.`faktury_id`=faktury.id JOIN `cena` ON `cena`.`id`=`objednavky`.cena_id
+                            WHERE `faktury`.`datum_vydani` IS NULL AND `cena`.`zbozi_id`={$row['id']}";
+                if ($dataR = $db->query($sqlCena)) {
+                    if ($dataR->num_rows > 0) {
+                        $rowR = $dataR->fetch_assoc();
+                        $mnozRez = $row['mnozstvi']-$rowR['rez'];
+
+                    }
+                }
+
+                echo" <div class='cln1'>
+                                <h1 class='name'>{$row['nazev']}</h1>
+                                <h1 class='name1'>Cena: {$row['cena']} Kč</h1>
+                                <h1 class='name1'>Množství: {$mnozRez} kusů</h1>";
+
+                //Oříznutí popisu
+//                                $znak = strpos($row['popis'],'</p>');
+//                                if ($znak<150) {
+//                                echo substr($row['popis'], 0, $znak);
+//                                echo "...";
+//                                }else if(strlen($row['popis'])>=150){
+//                                echo substr($row['popis'], 0, 150);
+//                                echo "...";
+//                                }else{
+                echo"<p class='popisZbozi'>";
+                echo $row['popis'];
+                echo"</p>";
+//                                }
+
+                echo"</div>";
+                /*if(!isset($_SESSION["login"])){
+                    echo "<br><a href='#' onclick='alertJS();return false;' class='a'><button class='tlacitko1'>REZERVOVAT</button></a>"; //dát správný odkaz
+                }else{
+                    echo "<br><a href='#.php?id=$row[id]' class='a'><button class='tlacitko1'>REZERVOVAT</button></a>"; //dát správný odkaz
+                }*/
+
+
+                echo"</div>";
+            }echo"</div>";
+
+            echo"<div class='obalCisel'>";
+
+            if (!isset($_GET["st"]))
+                $i = 1;
+            else {
+                $i = $_GET['st'];
+                if (!preg_match("/^[0-9]+$/", $_GET['st'])) {
+                    $i = 1;
+                }
+            }
+            if (isset($_GET['st'])) {
+                if ($_GET['st'] > $pocetStran) {
+                    $i = 1;
+                }
+            }
+
+            if ($i > 1) {
+                if(isset($_GET['r'])){
+                    echo "<a href='zbozi.php?st=1&r=" . ($_GET['r']) . "'>&lt;&lt; </a>";
+                }else {
+                    echo "<a href='zbozi.php?st=1'>&lt;&lt; </a>";
+                }
+            }
+
+// PŘEDCHOZÍ
+            if ($i > 1) {
+                if(isset($_GET['r'])){
+                    echo "<a class='stranky'  href='zbozi.php?st=" . ($i - 1) . "&r=" . ($_GET['r']) . "'> &lt; </a>";
+                }else {
+                    echo "<a class='stranky'  href='zbozi.php?st=" . ($i - 1) . "'> &lt; </a>";
+                }
+// PŘEDCHOZÍ - CYKLUS
+                for ($j = 4; $j > 0; $j--) {
+                    if (($i - $j) >= 1) {
+                        if(isset($_GET['r'])){
+                            echo "<a class='stranky' href='zbozi.php?st=" . ($i - $j) . "&r=" . ($_GET['r']) . "'>" . ($i - $j) . "</a>";
+                        }else{
+                            echo "<a class='stranky' href='zbozi.php?st=" . ($i - $j) . "'>" . ($i - $j) . "</a>";
+                        }
+                    }
+                }
+            }
+
+            echo "<b class='aktualStr'>" . $i . "</b>";
+
+// DALŠÍ
+            if ($i < ($pocetStran)) {
+                // DALŠÍ - CYKLUS
+                for ($m = 1; $m < 4; $m++) {
+                    if (($i + $m) <= ceil($pocetStran)) {
+                        if(isset($_GET['r'])){
+                            echo "<a class='stranky' href='zbozi.php?st=" . ($i + $m) . "&r=" . ($_GET['r']) . "'>" . ($i + $m) . "</a>";
+                        }else {
+                            echo "<a class='stranky' href='zbozi.php?st=" . ($i + $m) . "'>" . ($i + $m) . "</a>";
+                        }
+                    }
+                }
+
+// DALŠÍ
+                if(isset($_GET['r'])){
+                    echo "<a class='stranky' href='zbozi.php?st=" . ($i + 1) . "&r=" . ($_GET['r']) . "'> &gt; </a>";
+                }else {
+                    echo "<a class='stranky' href='zbozi.php?st=" . ($i + 1) . "'> &gt; </a>";
+                }
+
+            }
+
+
+// KONEC
+            if ($i < ceil($pocetStran)) {
+                if(isset($_GET['r'])){
+                    echo "<a class='stranky' href='zbozi.php?st=" . ceil($pocetStran) . "&r=" . ($_GET['r']) . "'> &gt;&gt;</a>";
+                }else{
+                    echo "<a class='stranky' href='zbozi.php?st=" . ceil($pocetStran) . "'> &gt;&gt;</a>";
+                }
+
+            }
+
+            echo "</div>";
+        } else
+            echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
+    }
+}
 
 ?>
 <script>

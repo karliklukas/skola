@@ -21,9 +21,10 @@
                     <input type="checkbox" id="drop-1"/>
                     <ul>
                         <li><a href="./zbozi.php">Nabídka</a></li>
+                        <li><a href="./zboziSmazane.php">Smazané zb.</a></li>
                         <li><a href="./sleva.php">Zlevnit zboží</a></li>
                         <li><a href="./upravaZbozi.php">Úprava zboží</a></li>
-                        <li><a href="#">Přidat zboží</a></li>
+                        <li><a href="./admin.php">Přidat zboží</a></li>
                     </ul>
                 </li>
                 <li>
@@ -37,7 +38,7 @@
 
                     </ul>
                 </li>
-                <li><a href="#">Blog</a></li>
+                <li><a href="./pridaniInfo.php">Správa</a></li>
                 <li><a href="#">Submit</a></li>
                 <li><a href="kosik.php">Košík</a></li>
                 <li class="posledni"><a href="./odhlaseni.php">Odhlásit</a></li>

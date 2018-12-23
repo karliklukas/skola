@@ -5,7 +5,7 @@ include "funkce.php";
 
 
 
-smazZbozi();
+obnovZbozi();
 
 
 header("Location: upravaZbozi.php");

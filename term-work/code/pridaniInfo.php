@@ -1,0 +1,42 @@
+<?php
+@session_start();
+include "./funkce.php";
+$db=spojeni();
+opravneniA();
+Menu();
+?>
+    <div class="dvaBloky">
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            <h1 class="nadpis_vedlejsi_stranka">Nová kategorie</h1>
+            <input type="text" name="nazev" placeholder="Název kategorie" required>
+
+            <input type="submit" name="sendedK" class="send" value="Odeslat">
+        </form>
+
+        <?php
+        pridatKategorie();
+        ?>
+    </div>
+
+    <div class="dvaBloky">
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            <h1 class="nadpis_vedlejsi_stranka">Nový výrobce</h1>
+            <input type="text" name="nazev" placeholder="Název" required>
+            <input type="text" name="mesto" placeholder="Město" required>
+            <input type="text" name="adresa" placeholder="Ulice č.p." required>
+
+            <input type="number" name="ico"  min="0" placeholder="ico" required >
+
+            <input type="submit" name="sendedV" class="send" value="Odeslat">
+        </form>
+
+        <?php
+        pridatVyrobce();
+        ?>
+    </div>
+
+<?php
+include './body/footer.php';
+?>
