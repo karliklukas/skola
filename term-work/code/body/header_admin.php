@@ -22,7 +22,6 @@
                     <ul>
                         <li><a href="./zbozi.php">Nabídka</a></li>
                         <li><a href="./zboziSmazane.php">Smazané zb.</a></li>
-                        <li><a href="./sleva.php">Zlevnit zboží</a></li>
                         <li><a href="./upravaZbozi.php">Úprava zboží</a></li>
                         <li><a href="./admin.php">Přidat zboží</a></li>
                     </ul>

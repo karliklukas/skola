@@ -15,29 +15,18 @@
             <ul class="menu">
                 <li><a href="./index.php">Home</a></li>
 
-                <li>
-                    <label for="drop-1" class="toggle">Zboží +</label>
-                    <a href="#">Zboží</a>
-                    <input type="checkbox" id="drop-1"/>
-                    <ul>
-                        <li><a href="./zbozi.php">Nabídka</a></li>
-                        <li><a href="#">Service 2</a></li>
-                        <li><a href="#">Service 3</a></li>
-                    </ul>
-                </li>
+                <li><a href="./zbozi.php">Zboží</a></li>
                 <li>
 
-                    <label for="drop-2" class="toggle">Portfolio +</label>
-                    <a href="#">Portfolio</a>
+                    <label for="drop-2" class="toggle">Rezervace +</label>
+                    <a href="#">Rezervace</a>
                     <input type="checkbox" id="drop-2"/>
                     <ul>
-                        <li><a href="#">Portfolio 1</a></li>
-                        <li><a href="#">Portfolio 2</a></li>
+                        <li><a href="./rezervace.php">Rezervace</a></li>
+                        <li><a href="./historieRezervace.php">Historie</a></li>
 
                     </ul>
                 </li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Submit</a></li>
                 <li><a href="kosik.php">Košík</a></li>
                 <li class="posledni"><a href="./odhlaseni.php">Odhlásit</a></li>
             </ul>

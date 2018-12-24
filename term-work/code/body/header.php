@@ -15,31 +15,11 @@
             <ul class="menu">
                 <li><a href="./index.php">Home</a></li>
 
-                <li>
-                    <label for="drop-1" class="toggle">Service +</label>
-                    <a href="#">Service</a>
-                    <input type="checkbox" id="drop-1"/>
-                    <ul>
-                        <li><a href="#">Service 1</a></li>
-                        <li><a href="#">Service 2</a></li>
-                        <li><a href="#">Service 3</a></li>
-                    </ul>
-                </li>
-                <li>
+                <li><a href="./zbozi.php">Zboží</a></li>
 
-                    <label for="drop-2" class="toggle">Portfolio +</label>
-                    <a href="#">Portfolio</a>
-                    <input type="checkbox" id="drop-2"/>
-                    <ul>
-                        <li><a href="#">Portfolio 1</a></li>
-                        <li><a href="#">Portfolio 2</a></li>
-
-                    </ul>
-                </li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Submit</a></li>
-                <li><a href="#">Contact</a></li>
-                <li class="posledni"><a href="#">About</a></li>
+                <li><a href="a.php">O nás</a></li>
+                <li><a href="./prihlaseni.php">Příhlásit</a></li>
+                <li class="posledni"><a href="./odhlaseni.php">Zaregistrovat</a></li>
             </ul>
         </nav>
 

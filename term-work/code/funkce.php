@@ -233,6 +233,124 @@ function pridaniZbozi() {
     }
 }
 
+function editaceZbozi() {
+    $db = spojeni();
+    if (isset($_POST["sended"])) {
+        if (empty($_POST["nazev"]) || empty($_POST["popis"]) || empty($_POST["id_vyr"])|| empty($_POST["id_kat"])|| empty($_POST["cena"])|| empty($_POST["mnozstvi"])) {
+            echo "Vyplň formulář ";
+            echo $_POST["id_vyr"];
+            echo $_POST["id_kat"];
+        } else {
+            if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+                return;
+            }
+            $nazev = $_POST["nazev"];
+            $popis = $_POST["popis"];
+            $cena = $_POST["cena"];
+            $mnozstvi = $_POST["mnozstvi"];
+            $vyrobce = $_POST["id_vyr"];
+            $kategorie = $_POST["id_kat"];
+            $idZ = $_GET['id'];
+            $cena=  floatval(str_replace(',', '.', $cena));
+
+
+
+            $sql = "UPDATE `zbozi` SET `nazev` = ?, `popis` = ?, `mnozstvi` = ?, `vyrobce_id` = ?, `kategorie_id` = ? WHERE `zbozi`.`idzbozi` = {$idZ}";
+            if ($stmt = $db->prepare($sql)) {
+                $stmt->bind_param("ssiii", $nazev, $popis,$mnozstvi,$vyrobce,$kategorie);
+                $stmt->execute();
+
+            }
+
+            $sql1 = "INSERT INTO `cena` (`cena`, `zbozi_id`) VALUES (?,?)";
+            if ($stmt = $db->prepare($sql1)) {
+                $stmt->bind_param("di", $cena,$idZ);
+                $stmt->execute();
+            }
+
+            $errors = array();
+            $uploadedFiles = array();
+            $extension = array("jpeg", "jpg", "png", "gif", "PNG", "JPG", "GIF", "JPEG");
+            $bytes = 1024;
+            $KB = 4096;
+            $totalBytes = $bytes * $KB;
+            $UploadFolder = "images/obrazkyZbozi/" . $idZ;
+
+            $counter = 0;
+            //mazani starenho obr
+            if (is_dir($UploadFolder))
+                $dir_handle = opendir($UploadFolder);
+            while($file = readdir($dir_handle)) {
+                if ($file != "." && $file != "..") {
+                    unlink($UploadFolder . "/" . $file);
+                }
+            }
+            closedir($dir_handle);
+            /////
+
+            foreach ($_FILES["files"]["tmp_name"] as $key => $tmp_name) {
+                $temp = $_FILES["files"]["tmp_name"][$key];
+                $name = $_FILES["files"]["name"][$key];
+
+                $pripona = substr($name, strpos($name,"."));
+
+                if (!is_dir($UploadFolder)) {
+                    mkdir($UploadFolder);
+                }
+
+                if (empty($temp)) {
+                    break;
+                }
+
+                $counter++;
+                $UploadOk = true;
+
+                if ($_FILES["files"]["size"][$key] > $totalBytes) {
+                    $UploadOk = false;
+                    array_push($errors, $name . " obrázek je větší než 4 MB.");
+                }
+
+                $ext = pathinfo($name, PATHINFO_EXTENSION);
+                if (in_array($ext, $extension) == false) {
+                    $UploadOk = false;
+                    array_push($errors, $name . " špatný typ obrázku.");
+                }
+
+                if (file_exists($UploadFolder . "/" . $name) == true) {
+                    $UploadOk = false;
+                    array_push($errors, $name . " obrázek již existuje.");
+                }
+
+                if ($UploadOk == true) {
+                    move_uploaded_file($temp, $UploadFolder . "/" . $idZ ."".$pripona);
+                    array_push($uploadedFiles, $name);
+                }
+            }
+
+            if ($counter > 0) {
+                if (count($errors) > 0) {
+                    echo "<b>Chyby:</b>";
+                    echo "<br/><ul>";
+                    foreach ($errors as $error) {
+                        echo "<li>" . $error . "</li>";
+                    }
+                    echo "</ul><br/>";
+                }
+
+
+                if (count($uploadedFiles) > 0) {                //tenhle if je asi k ničemu, dřív vypisoval uložené obrázky, můžeš ho zkusit smazat
+                    foreach ($uploadedFiles as $fileName) {
+                    }
+                }
+
+            }else{
+                echo "podas";
+            }
+            //header("Location: upravaZbozi.php");
+        }
+    }
+}
+
 function vypisZbozi(){
     $db = spojeni();
 
@@ -619,18 +737,13 @@ FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` GROUP BY `zbozi
                 if($rez == ''){
                     $rez = 0;
                 }
-                if($row['platnost']==1){
-                    $pl = "Platné";
-                }else{
-                    $pl = "Neplatné";
-                }
 
-                echo "<tr><td><a href='nahledZbozi.php?id={$row['id']}'>{$row['nazev']}</a></td>  <td>{$row['cena']}</td> <td>{$row['mnozstvi']} ({$rez} rezervovano)</td> <td>{$pl}</td>";
+                echo "<tr><td><a href='zboziEditace.php?id={$row['id']}'>{$row['nazev']}</a></td>  <td>{$row['cena']}</td> <td>{$row['mnozstvi']} ({$rez} rezervovano)</td> ";
 
                 if($row['platnost']==1){
-                    echo "<td><a href='smazani.php?id={$row['id']}'>Smazat</a></td>";
+                    echo "<td>Platné</td><td><a href='smazani.php?id={$row['id']}'>Smazat</a></td>";
                 }else{
-                    echo "<td><a href='obnov.php?id={$row['id']}'>Obnov</a></td>";
+                    echo "<td>Neplatné</td><td><a href='obnov.php?id={$row['id']}'>Obnov</a></td>";
                 }
 
 
@@ -804,16 +917,22 @@ FROM `objednavky` JOIN `faktury` ON `objednavky`.`faktury_id`=faktury.id JOIN `c
     }
 }
 
-function vypisRezervaci() {
+function vypisRezervaci($op) {
     $db = spojeni();
 
 
-
+if ($op == -1) {
     $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena
 FROM `faktury`JOIN `objednavky` ON faktury.id=objednavky.faktury_id JOIN `cena` ON objednavky.cena_id=cena.id JOIN `uzivatel` ON `uzivatel`.`id`=`faktury`.`uzivatel_id`
 WHERE `faktury`.`datum_vydani` IS NULL
 GROUP BY `faktury`.`id`";
+} else{
+    $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena
+FROM `faktury`JOIN `objednavky` ON faktury.id=objednavky.faktury_id JOIN `cena` ON objednavky.cena_id=cena.id JOIN `uzivatel` ON `uzivatel`.`id`=`faktury`.`uzivatel_id`
+WHERE `faktury`.`datum_vydani` IS NULL AND `uzivatel`.`id`={$op}
+GROUP BY `faktury`.`id`";
 
+}
 
     if ($data = $db->query($sql)) {
         if ($data->num_rows > 0) {
@@ -833,8 +952,9 @@ GROUP BY `faktury`.`id`";
 
 
                 echo "<tr><td>{$row['id']}</td>  <td>{$row['datum_vytvoreni']}</td> <td>{$row['jmeno']} {$row['prijmeni']}</td> <td>{$cenaCelkem} Kc</td>
-                        <td><a href='podrobnosti.php?id={$row['id']}'>Podrobnosti</a></td> <td><a href='vydat.php?id={$row['id']}'>Vydáno</a></td>
-                      </tr>";
+                        <td><a href='podrobnosti.php?id={$row['id']}'>Podrobnosti</a></td> ";
+                if ($op == -1) {echo "<td><a href='vydat.php?id={$row['id']}'>Vydáno</a></td>";}else{echo "<td></td>";}
+                echo"</tr>";
 
             }
 
@@ -918,15 +1038,22 @@ WHERE objednavky.faktury_id={$_GET['id']}";
     }
 }
 
-function vypisHistorieRezervaci() {
+function vypisHistorieRezervaci($op) {
     $db = spojeni();
 
-
-
+if ($op == -1){
     $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena
 FROM `faktury`JOIN `objednavky` ON faktury.id=objednavky.faktury_id JOIN `cena` ON objednavky.cena_id=cena.id JOIN `uzivatel` ON `uzivatel`.`id`=`faktury`.`uzivatel_id`
 WHERE `faktury`.`datum_vydani` IS NOT NULL
 GROUP BY `faktury`.`id`";
+}else{
+    $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena
+FROM `faktury`JOIN `objednavky` ON faktury.id=objednavky.faktury_id JOIN `cena` ON objednavky.cena_id=cena.id JOIN `uzivatel` ON `uzivatel`.`id`=`faktury`.`uzivatel_id`
+WHERE `faktury`.`datum_vydani` IS NOT NULL AND `uzivatel`.`id`={$op}
+GROUP BY `faktury`.`id`";
+}
+
+
 
 
     if ($data = $db->query($sql)) {
@@ -955,7 +1082,7 @@ GROUP BY `faktury`.`id`";
 
             echo "</table></div>";
         } else
-            echo "<h1 class='nadpis_vedlejsi_stranka'>Žádné rezervace</h1>";
+            echo "<h1 class='nadpis_vedlejsi_stranka'>Žádné historie</h1>";
     }
 
 }
