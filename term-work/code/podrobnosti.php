@@ -3,11 +3,24 @@
 include "./funkce.php";
 $db=spojeni();
 Menu();
-?>
+opravneniU();
 
 
-<?php
-vypisRezervaciPodrobnosti();
+if ($_SESSION["opravneni"]==1){
+    vypisRezervaciPodrobnosti();
+}else {
+    $sqlC = "select * from faktury where uzivatel_id='{$_SESSION["id"]}' AND id={$_GET['id']}";
+    if ($dataC = $db->query($sqlC)) {
+        if ($dataC->num_rows > 0) {
+            vypisRezervaciPodrobnosti();
+        }else{
+            echo "<h1 class='nadpis_vedlejsi_stranka'>Žádné podrobnosti</h1>";
+        }
+    }else{
+        echo "<h1 class='nadpis_vedlejsi_stranka'>Žádné podrobnosti</h1>";
+    }
+}
+
 
 ?>
 

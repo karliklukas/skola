@@ -3,6 +3,7 @@
 include "./funkce.php";
 $db=spojeni();
 Menu();
+opravneniU();
 rezervace();
 ?>
 
@@ -19,8 +20,7 @@ if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
 }
 $id = $_GET['id'];
 
-$sql = "SELECT `zbozi`.`platnost` FROM zbozi
- WHERE `zbozi`.`idzbozi`={$id}";
+$sql = "SELECT `zbozi`.`platnost` FROM zbozi WHERE `zbozi`.`idzbozi`={$id}";
 
 
 if ($data = $db->query($sql)) {

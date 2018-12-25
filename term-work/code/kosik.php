@@ -4,6 +4,7 @@ include "./funkce.php";
 error_reporting(E_ERROR | E_PARSE);
 $db = spojeni();
 Menu();
+opravneniU();
 
 if ($_GET["action"] == "delete") {
     unset($_SESSION['cart'][$_GET['id']]);

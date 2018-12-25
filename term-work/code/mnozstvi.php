@@ -3,6 +3,7 @@
 include "./funkce.php";
 $db=spojeni();
 Menu();
+opravneniA();
 ?>
 <form action="" method="POST">
     <h1 class="nadpis_vedlejsi_stranka">Úprava množství zboží</h1>

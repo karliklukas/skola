@@ -3,6 +3,7 @@ session_start();
 include "./funkce.php";
 $db=spojeni();
 Menu();
+opravneniA();
 ?>
 
 

@@ -63,6 +63,7 @@ function prihlaseni() {
         if (password_verify($_POST["heslo"], $zaznam["heslo"])) {
             $_SESSION["login"] = $zaznam["email"];
             $_SESSION["id"] = $zaznam["id"];
+            $_SESSION["opravneni"] = $zaznam["opravneni"];
             rozrazeni();
         } else {
             echo "Zadali jste špatné údaje, zkuste to prosím znovu.";
@@ -466,18 +467,19 @@ function vypisZbozi(){
                                 <h1 class='name1'>Množství: {$mnozRez} kusů</h1>";
 
                 //Oříznutí popisu
-//                                $znak = strpos($row['popis'],'</p>');         
-//                                if ($znak<150) {
-//                                echo substr($row['popis'], 0, $znak);
-//                                echo "...";   
-//                                }else if(strlen($row['popis'])>=150){
-//                                echo substr($row['popis'], 0, 150);
-//                                echo "...";
-//                                }else{
-                echo"<p class='popisZbozi'>";
+
+                                $znak = strpos($row['popis'],'</p>');
+                                if ($znak<60) {
+                                echo substr($row['popis'], 0, $znak);
+                                //echo "...";
+                                }else if(strlen($row['popis'])>=60){
+                                echo substr($row['popis'], 0, 60);
+                                echo "...";
+                                }else{
+                 echo"<p class='popisZbozi'>";
                 echo $row['popis'];
                 echo"</p>";
-//                                }
+                                }
 
                 echo"</div>";
                 if(!isset($_SESSION["login"])){
@@ -741,9 +743,9 @@ FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` GROUP BY `zbozi
                 echo "<tr><td><a href='zboziEditace.php?id={$row['id']}'>{$row['nazev']}</a></td>  <td>{$row['cena']}</td> <td>{$row['mnozstvi']} ({$rez} rezervovano)</td> ";
 
                 if($row['platnost']==1){
-                    echo "<td>Platné</td><td><a href='smazani.php?id={$row['id']}'>Smazat</a></td>";
+                    echo "<td>Platné</td><td><a href='upravaZbozi.php?sm=true&id={$row['id']}'>Smazat</a></td>";
                 }else{
-                    echo "<td>Neplatné</td><td><a href='obnov.php?id={$row['id']}'>Obnov</a></td>";
+                    echo "<td>Neplatné</td><td><a href='upravaZbozi.php?ob=true&id={$row['id']}'>Obnov</a></td>";
                 }
 
 
@@ -857,7 +859,7 @@ function nahledZbozi()
 
                     echo "<p class='popisZbozi'>";
                     echo $row['popis'];
-                    echo "</p>";
+                   echo "</p>";
 //                                }
 
                     echo "</div>";
@@ -953,7 +955,8 @@ GROUP BY `faktury`.`id`";
 
                 echo "<tr><td>{$row['id']}</td>  <td>{$row['datum_vytvoreni']}</td> <td>{$row['jmeno']} {$row['prijmeni']}</td> <td>{$cenaCelkem} Kc</td>
                         <td><a href='podrobnosti.php?id={$row['id']}'>Podrobnosti</a></td> ";
-                if ($op == -1) {echo "<td><a href='vydat.php?id={$row['id']}'>Vydáno</a></td>";}else{echo "<td></td>";}
+                if ($op == -1) {echo "<td><a href='rezervace.php?vd=true&id={$row['id']}'>Vydat</a> <a href='rezervace.php?zr=true&id={$row['id']}'>Zrušit</a></td>";}
+                else{echo "<td><a href='rezervace.php?zr=true&id={$row['id']}'>Zrušit</a></td>";}
                 echo"</tr>";
 
             }
@@ -1035,6 +1038,35 @@ WHERE objednavky.faktury_id={$_GET['id']}";
                 header("Location:rezervace.php");
             }
         }
+    }
+}
+
+function zrusitRezervaciZbozi()
+{
+    $db = spojeni();
+
+    if (isset($_GET['id'])) {
+        if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+            return;
+        }
+
+        $sql = "DELETE FROM `objednavky` WHERE `objednavky`.`faktury_id` = {$_GET['id']}";
+        if ($stmt = $db->prepare($sql)) {
+            $stmt->execute();
+        } else {
+            echo "CHYBA";
+        }
+
+        $sql = "DELETE FROM `faktury` WHERE `faktury`.`id`= {$_GET['id']}";
+        if ($stmt = $db->prepare($sql)) {
+            $stmt->execute();
+        } else {
+            echo "CHYBA";
+        }
+
+
+        header("Location:rezervace.php");
+
     }
 }
 
