@@ -27,7 +27,8 @@
 
                     </ul>
                 </li>
-                <li><a href="kosik.php">Košík</a></li>
+                <li><a href="./editaceUzivatel.php">Účet</a></li>
+                <li><a href="./kosik.php">Košík</a></li>
                 <li class="posledni"><a href="./odhlaseni.php">Odhlásit</a></li>
             </ul>
         </nav>

@@ -38,9 +38,9 @@ Menu();
                     <p class="text">NABÍDKA ZBOŽÍ</p>
                 </div></a>
 
-            <a href="#.php"><div id="ctyri" class="baby">
+            <a href="rezervace.php"><div id="ctyri" class="baby">
                     <img src="images/project.png" class="icon4" id="ikona">
-                    <p class="text">ODKAZ 4</p>
+                    <p class="text">REZERVACE</p>
                 </div></a>
 
         </div>

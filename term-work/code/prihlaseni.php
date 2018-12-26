@@ -6,6 +6,7 @@ Menu();
 if(isset($_SESSION["login"])){
          header("Location: admin.php");
      }
+prihlaseni();
 ?>
 <div class="prihlaseni">
 <form action="" method="POST">
@@ -16,7 +17,7 @@ if(isset($_SESSION["login"])){
 </form>
 
 <?php
-prihlaseni();
+
 ?>
 </div>
 <?php

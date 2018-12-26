@@ -4,6 +4,12 @@ include "./funkce.php";
 $db=spojeni();
 opravneniA();
 Menu();
+if (isset($_GET['smk'])) {
+    smazKategorie();
+}
+if (isset($_GET['smv'])) {
+    smazVyrobce();
+}
 ?>
     <div class="dvaBloky">
 
@@ -36,7 +42,13 @@ Menu();
         pridatVyrobce();
         ?>
     </div>
+<h1 class="nadpis_vedlejsi_stranka">Kategorie</h1>
+<?php
+vypisKategorieUprava();
+?>
+<h1 class="nadpis_vedlejsi_stranka">Výrobci</h1>
 
 <?php
+vypisVyrobceUprava();
 include './body/footer.php';
 ?>

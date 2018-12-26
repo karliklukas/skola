@@ -26,42 +26,42 @@
     <session id="1599921059">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="10" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.10" value="3" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.open.time.9" value="2" />
+          <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="4" />
           <entry key="html" value="1" />
-          <entry key="php" value="117" />
+          <entry key="php" value="135" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="4" />
           <entry key="HTML" value="1" />
-          <entry key="PHP" value="117" />
+          <entry key="PHP" value="135" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="609" />
-          <entry key="php" value="4750" />
+          <entry key="php" value="6354" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="609" />
-          <entry key="HTML" value="35" />
-          <entry key="PHP" value="4669" />
+          <entry key="HTML" value="66" />
+          <entry key="PHP" value="6242" />
           <entry key="SQL" value="46" />
         </counts>
       </usages-collector>
@@ -72,119 +72,110 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/funkce.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="115" column="9" selection-start-line="115" selection-start-column="9" selection-end-line="115" selection-end-column="9" />
+            <state relative-caret-position="532">
+              <caret line="1695" column="42" selection-start-line="1695" selection-start-column="42" selection-end-line="1695" selection-end-column="42" />
               <folding>
-                <element signature="n#registrace#0;n#!!top" />
+                <element signature="n#prihlaseni#0;n#!!top" />
+                <element signature="n#rozrazeni#0;n#!!top" />
+                <element signature="n#opravneniA#0;n#!!top" />
                 <element signature="n#opravneniU#0;n#!!top" />
+                <element signature="n#Menu#0;n#!!top" />
                 <element signature="n#pridaniZbozi#0;n#!!top" />
+                <element signature="n#vypisZbozi#0;n#!!top" />
                 <element signature="e#25#29#0" expanded="true" />
                 <element signature="e#29#33#0" expanded="true" />
                 <element signature="n#vypisZboziSleva#0;n#!!top" />
                 <element signature="n#vypisZboziMnozstvi#0;n#!!top" />
-                <element signature="n#sleva#0;n#!!top" />
                 <element signature="n#vypisKategorie#0;n#!!top" />
+                <element signature="n#vypisKategorieUprava#0;n#!!top" />
                 <element signature="n#vypisVyrobce#0;n#!!top" />
-                <element signature="n#vydatZbozi#0;n#!!top" />
+                <element signature="n#vypisKategorieUprava#1;n#!!top" />
+                <element signature="n#nahledZbozi#0;n#!!top" />
+                <element signature="n#vypisRezervaci#0;n#!!top" />
+                <element signature="n#vypisRezervaciPodrobnosti#0;n#!!top" />
                 <element signature="n#zrusitRezervaciZbozi#0;n#!!top" />
                 <element signature="n#vypisHistorieRezervaci#0;n#!!top" />
-                <element signature="n#pridatKategorie#0;n#!!top" />
-                <element signature="n#pridatVyrobce#0;n#!!top" />
+                <element signature="n#smazKategorie#0;n#!!top" />
+                <element signature="n#smazKategorie#0;n#!!top" />
                 <element signature="n#smazZbozi#0;n#!!top" />
                 <element signature="n#obnovZbozi#0;n#!!top" />
                 <element signature="n#vypisZboziSmazane#0;n#!!top" />
                 <element signature="e#25#29#0" expanded="true" />
                 <element signature="e#29#33#0" expanded="true" />
+                <element signature="n#vypisUzivatelu#0;n#!!top" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/zboziEditace.php">
+        <entry file="file://$PROJECT_DIR$/editaceUzivatel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="498">
-              <caret line="106" column="153" selection-start-line="106" selection-start-column="153" selection-end-line="106" selection-end-column="153" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="702">
+              <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin.php">
+        <entry file="file://$PROJECT_DIR$/body/header_user.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="92" column="52" lean-forward="true" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="52" />
-              <folding>
-                <element signature="e#3827#3904#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="459">
+              <caret line="27" column="25" lean-forward="true" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/body/header_admin.php">
+        <entry file="file://$PROJECT_DIR$/upravaZbozi.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="46" column="30" selection-start-line="1" selection-end-line="46" selection-end-column="30" />
+            <state relative-caret-position="306">
+              <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nahledZbozi.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/body/footer.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="5" lean-forward="true" selection-start-column="5" selection-end-line="8" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/zbozi.php">
+        <entry file="file://$PROJECT_DIR$/editaceKategorie.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+              <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/css.css">
+        <entry file="file://$PROJECT_DIR$/editaceVyrobci.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="1018" column="23" selection-start-line="1018" selection-start-column="23" selection-end-line="1018" selection-end-column="23" />
+            <state relative-caret-position="272">
+              <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://D:/wamp64/www/web_maturita/novy_clanek.php">
+        <entry file="file://$PROJECT_DIR$/registrace.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="33" selection-end-column="9" />
+            <state relative-caret-position="306">
+              <caret line="18" column="8" lean-forward="true" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://D:/wamp64/www/web_maturita/clanek_uprava.php">
+        <entry file="file://$PROJECT_DIR$/prihlaseni.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2380">
-              <folding>
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="136">
+              <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rezervace.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -193,8 +184,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>@media</find>
-      <find>a{</find>
       <find>[0</find>
       <find>reze</find>
       <find>uzivatele</find>
@@ -202,7 +191,6 @@
       <find>VypisTrid</find>
       <find>preg</find>
       <find>div</find>
-      <find>hlaska</find>
       <find>0-9</find>
       <find>bind</find>
       <find>upda</find>
@@ -217,12 +205,15 @@
       <find>selected=selected</find>
       <find>selected</find>
       <find>type='t</find>
-      <find>\&quot;</find>
       <find>selecte</find>
       <find>hea</find>
       <find>&amp;</find>
       <find>medi</find>
       <find>pop</find>
+      <find>\&quot;</find>
+      <find>hlaska</find>
+      <find>echo &quot;Vyplň formulář&quot;;</find>
+      <find>echo &quot;Hesla nejsou stejná.&quot;;</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -231,32 +222,36 @@
         <option value="$PROJECT_DIR$/images/upravaZbozi.php" />
         <option value="$PROJECT_DIR$/header_admin.php" />
         <option value="$PROJECT_DIR$/sleva.php" />
-        <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/prihlaseni.php" />
         <option value="$PROJECT_DIR$/registrace.php" />
         <option value="$PROJECT_DIR$/uzivatel.php" />
-        <option value="$PROJECT_DIR$/pridaniInfo.php" />
         <option value="$PROJECT_DIR$/smazani.php" />
         <option value="$PROJECT_DIR$/obnov.php" />
-        <option value="$PROJECT_DIR$/body/header_admin.php" />
-        <option value="$PROJECT_DIR$/body/header_user.php" />
         <option value="$PROJECT_DIR$/body/header.php" />
         <option value="$PROJECT_DIR$/vydat.php" />
         <option value="$PROJECT_DIR$/zrusit.php" />
         <option value="$PROJECT_DIR$/odhlaseni.php" />
-        <option value="$PROJECT_DIR$/rezervace.php" />
         <option value="$PROJECT_DIR$/upravaZbozi.php" />
-        <option value="$PROJECT_DIR$/historieRezervace.php" />
         <option value="$PROJECT_DIR$/zboziSmazane.php" />
         <option value="$PROJECT_DIR$/kosik.php" />
         <option value="$PROJECT_DIR$/mnozstvi.php" />
         <option value="$PROJECT_DIR$/nahledZbozi.php" />
         <option value="$PROJECT_DIR$/zbozi.php" />
         <option value="$PROJECT_DIR$/podrobnosti.php" />
-        <option value="$PROJECT_DIR$/funkce.php" />
         <option value="$PROJECT_DIR$/css/css.css" />
-        <option value="$PROJECT_DIR$/admin.php" />
+        <option value="$PROJECT_DIR$/pridaniInfo.php" />
+        <option value="$PROJECT_DIR$/historieRezervace.php" />
+        <option value="$PROJECT_DIR$/rezervace.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/body/header_admin.php" />
         <option value="$PROJECT_DIR$/zboziEditace.php" />
+        <option value="$PROJECT_DIR$/admin.php" />
+        <option value="$PROJECT_DIR$/spravaUzivatel.php" />
+        <option value="$PROJECT_DIR$/prihlaseni.php" />
+        <option value="$PROJECT_DIR$/editaceKategorie.php" />
+        <option value="$PROJECT_DIR$/editaceVyrobci.php" />
+        <option value="$PROJECT_DIR$/funkce.php" />
+        <option value="$PROJECT_DIR$/body/header_user.php" />
+        <option value="$PROJECT_DIR$/editaceUzivatel.php" />
       </list>
     </option>
   </component>
@@ -340,16 +335,17 @@
       <workItem from="1545592460601" duration="8198000" />
       <workItem from="1545651833464" duration="6787000" />
       <workItem from="1545767666223" duration="6267000" />
+      <workItem from="1545829315261" duration="11374000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65738000" />
+    <option name="totallyTimeSpent" value="77112000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1433902" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14498934" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -412,13 +408,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sleva.php">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -453,13 +442,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/body/header_user.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="17" lean-forward="true" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/body/header.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -489,48 +471,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/zrusit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vydat.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/obnov.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smazani.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/registrace.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/upravaZbozi.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/zrusit.php" />
+    <entry file="file://$PROJECT_DIR$/vydat.php" />
+    <entry file="file://$PROJECT_DIR$/obnov.php" />
+    <entry file="file://$PROJECT_DIR$/smazani.php" />
     <entry file="file://$PROJECT_DIR$/uzivatel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -552,27 +496,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/odhlaseni.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pridaniInfo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prihlaseni.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/zboziSmazane.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -580,24 +503,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/historieRezervace.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rezervace.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="23" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/podrobnosti.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/body/footer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" selection-start-column="5" selection-end-line="8" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -610,7 +526,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/css/css.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="17306">
           <caret line="1018" column="23" selection-start-line="1018" selection-start-column="23" selection-end-line="1018" selection-end-column="23" />
         </state>
       </provider>
@@ -622,50 +538,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/funkce.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="115" column="9" selection-start-line="115" selection-start-column="9" selection-end-line="115" selection-end-column="9" />
-          <folding>
-            <element signature="n#registrace#0;n#!!top" />
-            <element signature="n#opravneniU#0;n#!!top" />
-            <element signature="n#pridaniZbozi#0;n#!!top" />
-            <element signature="e#25#29#0" expanded="true" />
-            <element signature="e#29#33#0" expanded="true" />
-            <element signature="n#vypisZboziSleva#0;n#!!top" />
-            <element signature="n#vypisZboziMnozstvi#0;n#!!top" />
-            <element signature="n#sleva#0;n#!!top" />
-            <element signature="n#vypisKategorie#0;n#!!top" />
-            <element signature="n#vypisVyrobce#0;n#!!top" />
-            <element signature="n#vydatZbozi#0;n#!!top" />
-            <element signature="n#zrusitRezervaciZbozi#0;n#!!top" />
-            <element signature="n#vypisHistorieRezervaci#0;n#!!top" />
-            <element signature="n#pridatKategorie#0;n#!!top" />
-            <element signature="n#pridatVyrobce#0;n#!!top" />
-            <element signature="n#smazZbozi#0;n#!!top" />
-            <element signature="n#obnovZbozi#0;n#!!top" />
-            <element signature="n#vypisZboziSmazane#0;n#!!top" />
-            <element signature="e#25#29#0" expanded="true" />
-            <element signature="e#29#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/body/footer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-line="8" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/wamp64/www/web_maturita/clanek_uprava.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2380">
-          <folding>
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/nahledZbozi.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -674,30 +548,152 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/body/header_admin.php">
+    <entry file="file://$PROJECT_DIR$/historieRezervace.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="46" column="30" selection-start-line="1" selection-end-line="46" selection-end-column="30" />
+        <state relative-caret-position="136">
+          <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin.php">
+    <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="92" column="52" lean-forward="true" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="52" />
-          <folding>
-            <element signature="e#3827#3904#0#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="300">
+          <caret line="40" column="34" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/body/header_admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="69" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pridaniInfo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="53" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/zboziEditace.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="106" column="153" selection-start-line="106" selection-start-column="153" selection-end-line="106" selection-end-column="153" />
+        <state relative-caret-position="680">
+          <caret line="75" column="65" selection-start-line="75" selection-start-column="65" selection-end-line="75" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spravaUzivatel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prihlaseni.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rezervace.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1031">
+          <caret line="75" column="69" selection-start-line="75" selection-start-column="69" selection-end-line="75" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/editaceKategorie.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/editaceVyrobci.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/upravaZbozi.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/registrace.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="8" lean-forward="true" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/body/header_user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="25" lean-forward="true" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odhlaseni.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funkce.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="1695" column="42" selection-start-line="1695" selection-start-column="42" selection-end-line="1695" selection-end-column="42" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#prihlaseni#0;n#!!top" />
+            <element signature="n#rozrazeni#0;n#!!top" />
+            <element signature="n#opravneniA#0;n#!!top" />
+            <element signature="n#opravneniU#0;n#!!top" />
+            <element signature="n#Menu#0;n#!!top" />
+            <element signature="n#pridaniZbozi#0;n#!!top" />
+            <element signature="n#vypisZbozi#0;n#!!top" />
+            <element signature="e#25#29#0" expanded="true" />
+            <element signature="e#29#33#0" expanded="true" />
+            <element signature="n#vypisZboziSleva#0;n#!!top" />
+            <element signature="n#vypisZboziMnozstvi#0;n#!!top" />
+            <element signature="n#vypisKategorie#0;n#!!top" />
+            <element signature="n#vypisKategorieUprava#0;n#!!top" />
+            <element signature="n#vypisVyrobce#0;n#!!top" />
+            <element signature="n#vypisKategorieUprava#1;n#!!top" />
+            <element signature="n#nahledZbozi#0;n#!!top" />
+            <element signature="n#vypisRezervaci#0;n#!!top" />
+            <element signature="n#vypisRezervaciPodrobnosti#0;n#!!top" />
+            <element signature="n#zrusitRezervaciZbozi#0;n#!!top" />
+            <element signature="n#vypisHistorieRezervaci#0;n#!!top" />
+            <element signature="n#smazKategorie#0;n#!!top" />
+            <element signature="n#smazKategorie#0;n#!!top" />
+            <element signature="n#smazZbozi#0;n#!!top" />
+            <element signature="n#obnovZbozi#0;n#!!top" />
+            <element signature="n#vypisZboziSmazane#0;n#!!top" />
+            <element signature="e#25#29#0" expanded="true" />
+            <element signature="e#29#33#0" expanded="true" />
+            <element signature="n#vypisUzivatelu#0;n#!!top" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/editaceUzivatel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
         </state>
       </provider>
     </entry>

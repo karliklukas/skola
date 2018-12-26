@@ -38,7 +38,7 @@
                     </ul>
                 </li>
                 <li><a href="./pridaniInfo.php">Správa</a></li>
-                <li><a href="#">Submit</a></li>
+                <li><a href="./spravaUzivatel.php">Uživatelé</a></li>
                 <li><a href="kosik.php">Košík</a></li>
                 <li class="posledni"><a href="./odhlaseni.php">Odhlásit</a></li>
             </ul>

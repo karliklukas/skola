@@ -26,7 +26,7 @@ opravneniU();
   }
 ?>
 
-
+    <h1 class="nadpis_vedlejsi_stranka">Rezervace</h1>
 <?php
 
 if($_SESSION["opravneni"]!="1"){

@@ -12,9 +12,9 @@ function registrace() {
     $db = spojeni();
     if (isset($_POST["sended"])) {
         if (empty($_POST["jmeno"]) || empty($_POST["heslo1"]) || empty($_POST["prijmeni"]) || empty($_POST["heslo2"]) || empty($_POST["email"])) {
-            echo "Vyplň formulář";
+            echo "<p class='hlaska'>Vyplň formulář</p>";
         } else if ($_POST["heslo1"] != $_POST["heslo2"]) {
-            echo "Hesla nejsou stejná.";
+            echo "<p class='hlaska'>Hesla nejsou stejná.</p>";
         } else {
             $jmeno = $_POST["jmeno"];
             $prijmeni = $_POST["prijmeni"];
@@ -31,7 +31,7 @@ function registrace() {
             }
 
             if ($chyba == 1) {
-                echo "Tento email již je v naší databázi.";
+                echo "<p class='hlaska'>Tento email již je v naší databázi.</p>";
             } else {
 
                 $sql5 = "INSERT INTO `uzivatel` (`jmeno`, `prijmeni`, `email`, `heslo`) VALUES (?,?,?,?);";
@@ -40,7 +40,7 @@ function registrace() {
                     $stmt->execute();
                     $id = $stmt->insert_id;
 
-                    echo "Jste zaregistrováni, můžete se přihlásit";
+                    echo "<p class='hlaska'>Jste zaregistrováni, můžete se přihlásit</p>";
                 }
             }
         }
@@ -53,7 +53,7 @@ function prihlaseni() {
         $login = $_POST["email"];
         $heslo = $_POST["heslo"];
 
-        $stmt = $db->prepare("select * from uzivatel where email=? limit 1");
+        $stmt = $db->prepare("select * from uzivatel where email=? AND platnost=1 limit 1");
         $stmt->bind_param("s", $login);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -66,7 +66,7 @@ function prihlaseni() {
             $_SESSION["opravneni"] = $zaznam["opravneni"];
             rozrazeni();
         } else {
-            echo "Zadali jste špatné údaje, zkuste to prosím znovu.";
+            echo "<h1 class='nadpis_vedlejsi_stranka'>Zadali jste špatné údaje, zkuste to prosím znovu.</h1>";
         }
     }
 }
@@ -81,7 +81,7 @@ function rozrazeni() {
         $data = mysqli_query($db, $dotaz);
         $zaznam = mysqli_fetch_array($data);
         if ($zaznam["opravneni"] == "0") {
-            header("Location: uzivatel.php");
+            header("Location: rezervace.php");
         } else if ($zaznam["opravneni"] == "1") {
             header("Location: admin.php");
         }
@@ -630,7 +630,7 @@ function sleva() {
     $nula=0;
     if (isset($_POST["sended"])) {
         if (empty($_POST["sleva"])&& $_POST["sleva"] != $nula) {
-            echo "Vyplň formulář";
+            echo "<p class='hlaska'>Vyplň formulář</p>";
         } else if($_POST["sleva"]==$nula) {
             $sleva = 0;
             $zbozi = $_POST["id_zbozi"];
@@ -663,7 +663,7 @@ function mnozstvi() {
 
     if (isset($_POST["sended"])) {
         if (empty($_POST["mnozstvi"])) {
-            echo "Vyplň formulář";
+            echo "<p class='hlaska'>Vyplň formulář</p>";
         } else {
             if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
                 return;
@@ -780,6 +780,48 @@ function vypisKategorie(){
     }
 }
 
+function vypisKategorieUprava() {
+    $db = spojeni();
+
+
+    $sql = "SELECT * FROM `kategorie` ORDER BY `nazev` ASC";
+
+
+    if ($data = $db->query($sql)) {
+        if ($data->num_rows > 0) {
+            echo "<div class='obalTable'><table class='table1'>";
+            echo "<tr> <th>Název</th><th>Množství výskytů</th><th></th> <th></th></tr>";
+
+            while ($row = $data->fetch_assoc()) {
+                $rez = 0;
+                $sqlCena = "SELECT COUNT(`zbozi`.`idzbozi`) AS zb
+                            FROM `zbozi` WHERE `zbozi`.`kategorie_id` ={$row['idkategorie']}";
+                if ($dataR = $db->query($sqlCena)) {
+                    if ($dataR->num_rows > 0) {
+                        $rowR = $dataR->fetch_assoc();
+                        $rez = $rowR['zb'];
+                    }
+                }
+
+                //if($rez == ''){
+                //    $rez = 0;
+                //}
+
+                echo "<tr><td>{$row['nazev']}</td> <td>{$rez}</td> <td><a href='editaceKategorie.php?id={$row['idkategorie']}'>Editace</a></td>";
+                if($rez==0){echo "<td><a href='pridaniInfo.php?smk=true&id={$row['idkategorie']}'>Smaž</a></td>"; }else{echo "<td>Smaž</td>";}
+
+                echo "</tr>";
+
+            }
+
+
+            echo "</table></div>";
+        } else
+            echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
+    }
+
+}
+
 function vypisVyrobce(){
     $db= spojeni();
     $sql = "SELECT * FROM `vyrobce` ORDER BY `nazev` ASC";
@@ -796,6 +838,48 @@ function vypisVyrobce(){
         } else
             echo "Nejsou tu zadne kategorie";
     }
+}
+
+function vypisVyrobceUprava() {
+    $db = spojeni();
+
+
+    $sql = "SELECT * FROM `vyrobce` ORDER BY `nazev` ASC";
+
+
+    if ($data = $db->query($sql)) {
+        if ($data->num_rows > 0) {
+            echo "<div class='obalTable'><table class='table1'>";
+            echo "<tr> <th>Název</th><th>ICO</th><th>Město, Adresa</th><th>Množství výskytů</th><th></th> <th></th></tr>";
+
+            while ($row = $data->fetch_assoc()) {
+                $rez = 0;
+                $sqlCena = "SELECT COUNT(`zbozi`.`idzbozi`) AS zb
+                            FROM `zbozi` WHERE `zbozi`.`vyrobce_id` ={$row['idvyrobce']}";
+                if ($dataR = $db->query($sqlCena)) {
+                    if ($dataR->num_rows > 0) {
+                        $rowR = $dataR->fetch_assoc();
+                        $rez = $rowR['zb'];
+                    }
+                }
+
+                //if($rez == ''){
+                //    $rez = 0;
+                //}
+
+                echo "<tr><td>{$row['nazev']}</td><td>{$row['ico']}</td><td>{$row['mesto']}, {$row['adresa']}</td> <td>{$rez}</td> <td><a href='editaceVyrobci.php?id={$row['idvyrobce']}'>Editace</a></td>";
+                if($rez==0){echo "<td><a href='pridaniInfo.php?smv=true&id={$row['idvyrobce']}'>Smaž</a></td>"; }else{echo "<td>Smaž</td>";}
+
+                echo "</tr>";
+
+            }
+
+
+            echo "</table></div>";
+        } else
+            echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
+    }
+
 }
 
 function nahledZbozi()
@@ -876,7 +960,7 @@ function rezervace() {
     $db = spojeni();
     if (isset($_POST["sended"])) {
         if (empty($_POST["mnozstvi"])) {
-            echo "Vyplň formulář";
+            echo "<p class='hlaska'>Vyplň formulář</p>";
         } else {
             if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
                 return;
@@ -1123,7 +1207,7 @@ function pridatKategorie() {
     $db = spojeni();
     if (isset($_POST["sendedK"])) {
         if (empty($_POST["nazev"])) {
-            echo "Vyplň formulář";
+            echo "<p class='hlaska'>Vyplň formulář</p>";
         } else {
             $nazev = $_POST["nazev"];
 
@@ -1141,11 +1225,36 @@ function pridatKategorie() {
     }
 }
 
+function editKategorie() {
+    $db = spojeni();
+    if (isset($_POST["sendedK"]) && isset($_GET['id'])) {
+        if (empty($_POST["nazev"])) {
+            echo "<p class='hlaska'>Vyplň formulář</p>";
+        } else {
+            if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+                return;
+            }
+            $nazev = $_POST["nazev"];
+
+
+            $sql5 = "UPDATE `kategorie` SET `nazev` = ? WHERE `kategorie`.`idkategorie` = {$_GET['id']}";
+            if ($stmt = $db->prepare($sql5)) {
+                $stmt->bind_param("s", $nazev);
+                $stmt->execute();
+
+                header("Location:pridaniInfo.php");
+            }else {
+                echo "<p class='hlaska'>Chyba</p>";
+            }
+        }
+    }
+}
+
 function pridatVyrobce() {
     $db = spojeni();
     if (isset($_POST["sendedV"])) {
         if (empty($_POST["nazev"]) || empty($_POST["mesto"]) || empty($_POST["adresa"]) || empty($_POST["ico"])) {
-            echo "Vyplň formulář";
+            echo "<p class='hlaska'>Vyplň formulář</p>";
         } else {
             $nazev = $_POST["nazev"];
             $mesto = $_POST["mesto"];
@@ -1167,6 +1276,77 @@ function pridatVyrobce() {
     }
 }
 
+function editVyrobce() {
+    $db = spojeni();
+    if (isset($_POST["sendedV"]) && isset($_GET['id'])) {
+        if (empty($_POST["nazev"]) || empty($_POST["mesto"]) || empty($_POST["adresa"]) || empty($_POST["ico"])) {
+            echo "<p class='hlaska'>Vyplň formulář</p>";
+        } else {
+            if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+                return;
+            }
+            $nazev = $_POST["nazev"];
+            $mesto = $_POST["mesto"];
+            $adresa = $_POST["adresa"];
+            $ico = $_POST["ico"];
+
+
+            $sql5 = "UPDATE `vyrobce` SET `nazev` = ?, `mesto` = ?, `adresa` = ?, `ico` = ? WHERE `vyrobce`.`idvyrobce` = {$_GET['id']}";
+            if ($stmt = $db->prepare($sql5)) {
+                $stmt->bind_param("sssi", $nazev, $mesto, $adresa, $ico);
+                $stmt->execute();
+
+                header("Location:pridaniInfo.php");
+            }else {
+                echo "<p class='hlaska'>Chyba</p>";
+            }
+
+        }
+    }
+}
+
+function smazVyrobce(){
+    $db = spojeni();
+
+    if (isset($_GET['id'])) {
+        if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+            return;
+        }
+
+        $sql = "DELETE FROM `vyrobce` WHERE idvyrobce= {$_GET['id']}";
+        if ($stmt = $db->prepare($sql)) {
+            $stmt->execute();
+        } else {
+            echo "CHYBA";
+        }
+
+
+        header("Location:pridaniInfo.php");
+
+    }
+}
+
+function smazKategorie(){
+    $db = spojeni();
+
+    if (isset($_GET['id'])) {
+        if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+            return;
+        }
+
+        $sql = "DELETE FROM `kategorie` WHERE idkategorie= {$_GET['id']}";
+        if ($stmt = $db->prepare($sql)) {
+            $stmt->execute();
+        } else {
+            echo "CHYBA";
+        }
+
+
+        header("Location:pridaniInfo.php");
+
+    }
+}
+
 function smazZbozi(){
     $db = spojeni();
 
@@ -1178,6 +1358,7 @@ function smazZbozi(){
         $sql = "UPDATE `zbozi` SET `platnost` = 0 WHERE `zbozi`.`idzbozi`= {$_GET['id']}";
         if ($stmt = $db->prepare($sql)) {
             $stmt->execute();
+            header("Location:upravaZbozi.php");
         } else {
             echo "CHYBA";
         }
@@ -1195,6 +1376,7 @@ function obnovZbozi(){
         $sql = "UPDATE `zbozi` SET `platnost` = 1 WHERE `zbozi`.`idzbozi`= {$_GET['id']}";
         if ($stmt = $db->prepare($sql)) {
             $stmt->execute();
+            header("Location:upravaZbozi.php");
         } else {
             echo "CHYBA";
         }
@@ -1424,6 +1606,98 @@ function vypisZboziSmazane(){
     }
 }
 
+function vypisUzivatelu() {
+    $db = spojeni();
+
+
+    $sql = "SELECT * FROM `uzivatel`";
+
+
+    if ($data = $db->query($sql)) {
+        if ($data->num_rows > 0) {
+            echo "<div class='obalTable'><table class='table1'>";
+            echo "<tr> <th>Jméno </th> <th>Přijmeni</th> <th>Email</th> <th>Platnost</th>  <th></th><th></th></tr>";
+
+            while ($row = $data->fetch_assoc()) {
+
+
+                echo "<tr><td>{$row['jmeno']}</td>  <td>{$row['prijmeni']}</td> <td>{$row['email']}</td> ";
+
+                if($row['platnost']==1 && $row['opravneni']!=1){
+                    echo "<td>Platné</td><td><a href='spravaUzivatel.php?sm=true&id={$row['id']}'>Smazat</a></td>";
+                }else if($row['opravneni']!=1){
+                    echo "<td>Neplatné</td><td><a href='spravaUzivatel.php?ob=true&id={$row['id']}'>Obnov</a></td>";
+                }else{
+                    echo "<td>Admin</td><td></td>";
+                }
+                if ($row['opravneni']!=1 || $row['id']==$_SESSION['id']){
+                    echo "<td><a href='editaceUzivatel.php?id={$row['id']}'>Edit</a></td>";
+                }else{
+                    echo "<td>Nelze</td>";
+                }
+
+                echo "</tr>";
+
+            }
+
+
+            echo "</table></div>";
+        } else
+            echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
+    }
+
+}
+
+
+function editUdaju($id){
+    $db = spojeni();
+    if (isset($_POST["sendedD"])) {
+        if (empty($_POST["jmeno"]) || empty($_POST["prijmeni"])) {
+            echo "<p class='hlaska'>Vyplň formulář</p>";
+        } else {
+            $jmeno = $_POST["jmeno"];
+            $prijmeni = $_POST["prijmeni"];
+
+
+            $sql5 = "UPDATE `uzivatel` SET `jmeno` = ?, `prijmeni` = ? WHERE `uzivatel`.`id` = ?";
+            if ($stmt = $db->prepare($sql5)) {
+                $stmt->bind_param("ssi", $jmeno, $prijmeni,$id);
+                $stmt->execute();
+
+            }
+            if ($_SESSION['opravneni']==1){
+                header("Location:spravaUzivatel.php");
+            }else{
+                header("Location:index.php");
+            }
+        }
+    }
+}
+
+function editHesla($id){
+    $db = spojeni();
+    if (isset($_POST["sendedH"])) {
+        if (empty($_POST["heslo1"]) || empty($_POST["heslo2"])) {
+            echo "<p class='hlaska'>Vyplň formulář</p>";
+        } else if ($_POST["heslo1"] != $_POST["heslo2"]) {
+            echo "<p class='hlaska'>Hesla nejsou stejná.</p>";
+        } else {
+            $heslo = password_hash($_POST["heslo1"], PASSWORD_BCRYPT);
+
+
+            $sql5 = "UPDATE `uzivatel` SET `heslo` = ? WHERE `uzivatel`.`id` = ?";
+            if ($stmt = $db->prepare($sql5)) {
+                $stmt->bind_param("si", $heslo, $id);
+                $stmt->execute();
+            }
+            if ($_SESSION['opravneni']==1){
+                header("Location:spravaUzivatel.php");
+            }else{
+                header("Location:odhlaseni.php");
+            }
+        }
+    }
+}
 ?>
 <script>
     function alertJS() {
