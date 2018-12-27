@@ -101,7 +101,7 @@ opravneniA();
     <label class="label">Vyberte obrázky k nahrání:</label>
     <br><div class="fileUpload">
     <span>Zvolit soubor</span>
-    <input type="file" name="files[]" multiple="multiple" class="file22" />
+    <input type="file" name="files[]" multiple="multiple" accept="image/gif, image/jpeg, image/png" class="file22" />
     </div>
 <input type="submit" name="sended" class="send" value="Odeslat">
     </form>

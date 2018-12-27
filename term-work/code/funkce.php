@@ -1062,18 +1062,25 @@ function vypisRezervaciPodrobnosti() {
         }
 
 
-        $sql = "SELECT `zbozi`.`nazev`, `objednavky`.`mnozstvi`, `vyrobce`.`nazev` AS vyrobce
-FROM `objednavky` JOIN `cena` ON objednavky.cena_id=cena.id JOIN `zbozi` ON zbozi.idzbozi=cena.zbozi_id JOIN `vyrobce` ON zbozi.vyrobce_id=vyrobce.idvyrobce
+        $sql = "SELECT `zbozi`.`nazev`, `objednavky`.`mnozstvi`, `vyrobce`.`nazev` AS vyrobce, `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`
+FROM `objednavky` JOIN `cena` ON objednavky.cena_id=cena.id JOIN `zbozi` ON zbozi.idzbozi=cena.zbozi_id JOIN `vyrobce` ON zbozi.vyrobce_id=vyrobce.idvyrobce 
+JOIN `faktury` ON faktury.id=objednavky.faktury_id JOIN `uzivatel` ON `uzivatel`.`id`=`faktury`.`uzivatel_id`
 WHERE objednavky.faktury_id={$_GET['id']}";
 
-
+$i =0;
         if ($data = $db->query($sql)) {
             if ($data->num_rows > 0) {
-                echo "<div class='obalTable'><table class='table1'>";
-                echo "<tr> <th>Výrobce</th> <th>Název produktu</th><th>Množství</th></tr>";
+
+
 
                 while ($row = $data->fetch_assoc()) {
-
+                    if ($i==0){
+                        $i=1;
+                        echo "<div class='obalTable'><table class='table1'>";
+                        echo "<p class='hlaska'>Číslo faktury: {$_GET['id']}</p><p class='hlaska'> Vytvoření: {$row['datum_vytvoreni']} Vydání: {$row['datum_vydani']}</p> 
+                                    <p class='hlaska'>Odběratel: {$row['jmeno']} {$row['prijmeni']}</p>";
+                        echo "<tr> <th>Výrobce</th> <th>Název produktu</th><th>Množství</th></tr>";
+                    }
                     echo "<tr><td>{$row['vyrobce']}</td>  <td>{$row['nazev']}</td> <td>{$row['mnozstvi']}</td></tr>";
 
                 }
@@ -1195,7 +1202,7 @@ GROUP BY `faktury`.`id`";
 
             }
 
-
+            echo "<tr><td colspan='5'></td><td><a href='historieRezervace.php?vd=true' class='a'><button class='tlacitko1'>To json</button></a></td></tr>";
             echo "</table></div>";
         } else
             echo "<h1 class='nadpis_vedlejsi_stranka'>Žádné historie</h1>";
@@ -1273,6 +1280,54 @@ function pridatVyrobce() {
             }
 
         }
+    }
+}
+
+function pridatVyrobceJSON() {
+    $db = spojeni();
+    if (isset($_POST["sendedJ"])) {
+        $uploaddir = './uploads/';
+        $uploadfile = $uploaddir . basename($_FILES['files']['name']);
+        $extension = array("json", "JSON");
+        $UploadOk = true;
+
+        $ext = pathinfo($_FILES["files"]["name"], PATHINFO_EXTENSION);
+        if (in_array($ext, $extension) == false) {
+            $UploadOk = false;
+            echo "<p class='hlaska'>Neplatny soubor</p>";
+
+        }
+
+        if ($UploadOk == true) {
+            if (move_uploaded_file($_FILES['files']['tmp_name'], $uploadfile)) {
+
+                $jsondata = file_get_contents($uploadfile);
+                $obj = json_decode($jsondata,true);
+
+                foreach ($obj as $k=>$v){
+
+                    $nazev = $v["nazev"];
+                    $mesto = $v["mesto"];
+                    $adresa = $v["adresa"];
+                    $ico = $v["ico"];
+
+
+                    $sql5 = "INSERT INTO `vyrobce` (`nazev`, `mesto`, `adresa`, `ico`) VALUES (?,?,?,?);";
+                    if ($stmt = $db->prepare($sql5)) {
+                        $stmt->bind_param("sssi", $nazev, $mesto, $adresa, $ico);
+                        $stmt->execute();
+                    }
+
+
+
+                }
+                echo "<p class='hlaska'>Výrobce/i vlozen/i.</p>";
+                unlink($uploadfile);
+            } else {
+                echo "<p class='hlaska'>Neplatny soubor</p>";
+            }
+        }
+
     }
 }
 
@@ -1698,12 +1753,58 @@ function editHesla($id){
         }
     }
 }
-?>
-<script>
-    function alertJS() {
-        if (confirm("Pro rezervaci se musíte příhlásit!\nPřihlásit se?")) {
-            window.location.href = "prihlaseni.php";
-        }
+
+function toJSON($op){
+    $db = spojeni();
+    if ($op == -1){
+        $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena
+FROM `faktury`JOIN `objednavky` ON faktury.id=objednavky.faktury_id JOIN `cena` ON objednavky.cena_id=cena.id JOIN `uzivatel` ON `uzivatel`.`id`=`faktury`.`uzivatel_id`
+WHERE `faktury`.`datum_vydani` IS NOT NULL
+GROUP BY `faktury`.`id`";
+    }else{
+        $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena
+FROM `faktury`JOIN `objednavky` ON faktury.id=objednavky.faktury_id JOIN `cena` ON objednavky.cena_id=cena.id JOIN `uzivatel` ON `uzivatel`.`id`=`faktury`.`uzivatel_id`
+WHERE `faktury`.`datum_vydani` IS NOT NULL AND `uzivatel`.`id`={$op}
+GROUP BY `faktury`.`id`";
     }
 
-</script>
+    $pole = array();
+    $pole1 = array();
+    if($data = $db->query($sql)){
+        if($data->num_rows > 0){
+            while($row = $data->fetch_assoc())
+            {
+                $pole[] = $row;
+
+            }
+            $pole1 = json_encode($pole, JSON_UNESCAPED_UNICODE);
+            //var_dump($pole1);
+            $adresa = './uploads/historie.json';
+            file_put_contents($adresa,$pole1);
+
+            //$file = './images/array.json';
+
+
+
+            if(file_exists($adresa)) {
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename='.basename($adresa));
+                header('Content-Transfer-Encoding: binary');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+                header('Pragma: public');
+                header('Content-Length: ' . filesize($adresa));
+                ob_clean();
+                flush();
+                readfile($adresa);
+                unlink($adresa);
+                exit;
+            }
+
+        }
+    }
+}
+
+?>
+

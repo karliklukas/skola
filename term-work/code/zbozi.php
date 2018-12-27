@@ -4,7 +4,14 @@ include "./funkce.php";
 $db=spojeni();
 Menu();
 ?>
+<script>
+    function alertJS() {
+        if (confirm("Pro rezervaci se musíte příhlásit!\nPřihlásit se?")) {
+            window.location.href = "prihlaseni.php";
+        }
+    }
 
+</script>
 
        
     <div class="obalTlZbozi">

@@ -19,7 +19,7 @@
 
                 <li><a href="a.php">O nás</a></li>
                 <li><a href="./prihlaseni.php">Příhlásit</a></li>
-                <li class="posledni"><a href="./odhlaseni.php">Zaregistrovat</a></li>
+                <li class="posledni"><a href="./registrace.php">Zaregistrovat</a></li>
             </ul>
         </nav>
 

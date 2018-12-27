@@ -38,8 +38,19 @@ if (isset($_GET['smv'])) {
             <input type="submit" name="sendedV" class="send" value="Odeslat">
         </form>
 
+        <form action="" method="POST" enctype="multipart/form-data">
+            <label class="label">Vyberte JSON k nahrání:</label>
+            <br><div class="fileUpload">
+                <span>Zvolit soubor</span>
+                <input type="file" name="files" class="file22" />
+            </div>
+
+            <input type="submit" name="sendedJ" class="send" value="Odeslat">
+        </form>
+
         <?php
         pridatVyrobce();
+        pridatVyrobceJSON();
         ?>
     </div>
 <h1 class="nadpis_vedlejsi_stranka">Kategorie</h1>

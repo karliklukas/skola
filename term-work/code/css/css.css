@@ -457,7 +457,12 @@ nav ul ul ul li { position: static;}
         width: 14vw;
         padding: 1vw;
     }
-
+    .prihlaseni .label{
+    font-size: 3.2vw;
+    }
+    .dvabloky .label{
+        font-size: 3.2vw;
+    }
 body{
     font-size: 5vw;
 }
