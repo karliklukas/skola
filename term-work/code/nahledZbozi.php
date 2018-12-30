@@ -6,7 +6,7 @@ Menu();
 opravneniU();
 rezervace();
 ?>
-
+<article>
     <h1 class="nadpis_vedlejsi_stranka">Náhled zboží</h1>
     <?php nahledZbozi();?>
     <form action="" method="POST">
@@ -37,7 +37,7 @@ if ($data = $db->query($sql)) {
 
 ?>
     </form>
-
+    </article>
 
 <?php
 include './body/footer.php';

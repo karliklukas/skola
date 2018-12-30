@@ -6,14 +6,14 @@ Menu();
 opravneniA();
 
 
-if (isset($_GET['vd'])) {
+if (isset($_GET['sm'])) {
 
-        vydatZbozil();
+       smazaniUzivatele();
 
 }
-if (isset($_GET['zr'])) {
+if (isset($_GET['ob'])) {
 
-    zrusitRezervaciZbozli();
+    obnoveniUzivatele();
 
 }
 ?>

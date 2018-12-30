@@ -12,7 +12,7 @@ if ($_GET["action"] == "delete") {
 }
 
 if (isset($_SESSION['cart']) && sizeof($_SESSION['cart']) > 0) {
-    echo "<div class='obalTable'><table class='table1'>
+    echo "<article class='obalTable'><table class='table1'>
     <thead>
     <tr>
         <th>Název</th>
@@ -51,7 +51,7 @@ if (isset($_SESSION['cart']) && sizeof($_SESSION['cart']) > 0) {
         echo "</tr>";
     }
 
-    echo "</table></div>";
+    echo "</table></article>";
 } else {
     echo "<h1 class='nadpis_vedlejsi_stranka'>Košík je prázdný</h1>";
 }

@@ -5,9 +5,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./css/css.css" type="text/css">
+        <link rel="icon" href="./images/logo.png">
     </head>
     <body>
-        
+        <header>
         <nav>
             <div id="logo">SYSTÉM PRO STAVEBNINY</div>
             <label for="drop" class="toggle">Menu</label>
@@ -32,5 +33,5 @@
                 <li class="posledni"><a href="./odhlaseni.php">Odhlásit</a></li>
             </ul>
         </nav>
-
-        <div id="baner"></div>
+        </header>
+        <section id="baner"></section>

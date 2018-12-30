@@ -10,7 +10,7 @@ opravneniA();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./css/css.css" type="text/css">
-
+        <link rel="icon" href="./images/logo.png">
 
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -42,7 +42,7 @@ opravneniA();
 
     </head>
     <body>
-
+<header>
         <nav>
             <div id="logo">SYSTÉM PRO STAVEBNINY</div>
             <label for="drop" class="toggle">Menu</label>
@@ -78,14 +78,14 @@ opravneniA();
                 <li class="posledni"><a href="./odhlaseni.php">Odhlásit</a></li>
             </ul>
         </nav>
-
-        <div id="baner"></div>
-
-
+</header>
+        <section id="baner"></section>
 
 
 
-<div class="prihlaseni">
+
+
+<article class="prihlaseni">
 
     <form action="" method="POST" enctype="multipart/form-data">
     <h1 class="nadpis_vedlejsi_stranka">Nové zboží</h1>
@@ -109,7 +109,7 @@ opravneniA();
 <?php
 pridaniZbozi();
 ?>
-</div>
+</article>
 
         <footer class="footer">
             <div class="footer1">

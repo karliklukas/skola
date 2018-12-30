@@ -4,8 +4,8 @@ include "./funkce.php";
 $db=spojeni();
 Menu();
 ?>
-<div class="pruh">
-            <div class="skola">
+<section class="pruh">
+            <article class="skola">
                 <div class="fotka"><img src="images/uvodni_foto.jpg" class="foto"></div>
                 <div class="text1">
                     <p class="nadpis2">O NÁS</p>
@@ -16,12 +16,12 @@ Menu();
                     sed tellus id magna elementum tincidunt. Nunc auctor. Quisque tincidunt scelerisque libero.
                     <br><a href="#"><button class="tlacitko">ČÍST VÍCE</button></a>
                 </div>
-            </div>
-        </div>
+            </article>
+        </section>
         
-        <div id="baner2"></div>
+        <section id="baner2"></section>
 
-        <div class="parent">
+        <section class="parent">
             <a href="registrace.php" >
                 <div id="jedna" class="baby">
                     <img src="images/registrace.png" class="icon1" id="ikona">
@@ -43,10 +43,10 @@ Menu();
                     <p class="text">REZERVACE</p>
                 </div></a>
 
-        </div>
+        </section>
 
 
-        <div class="kontakt">
+        <section class="kontakt">
             <h1 class="nadpis_kontakt">KONTAKT</h1> 
             <div class="contact_div1">
           <p><b>Ředitelk:</b>  Jan Nekom</p>
@@ -69,7 +69,7 @@ Menu();
             <div class="mapa">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1281.40088678855!2d15.766640422808036!3d50.03381009849956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470dcc95e3bfb037%3A0x5df5b1e51080fef2!2zbsOhbS4gxIxzLiBsZWdpw60sIDUzMCAwMiBQYXJkdWJpY2UgSQ!5e0!3m2!1scs!2scz!4v1542548497802" frameborder="0" style="border:0" allowfullscreen class="mapa_rozmery"></iframe>
             </div>
-        </div> 
+        </section>
 <?php
 include './body/footer.php';
 ?>

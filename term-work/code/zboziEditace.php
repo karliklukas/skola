@@ -10,7 +10,7 @@ opravneniA();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./css/css.css" type="text/css">
-
+        <link rel="icon" href="./images/logo.png">
 
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -42,7 +42,7 @@ opravneniA();
 
     </head>
 <body>
-
+<header>
     <nav>
         <div id="logo">SYSTÉM PRO STAVEBNINY</div>
         <label for="drop" class="toggle">Menu</label>
@@ -78,8 +78,8 @@ opravneniA();
             <li class="posledni"><a href="./odhlaseni.php">Odhlásit</a></li>
         </ul>
     </nav>
-
-    <div id="baner"></div>
+</header>
+    <section id="baner"></section>
 
 
 
@@ -97,7 +97,7 @@ if (isset($_GET['id'])) {
         if($data->num_rows > 0){
             $row=$data->fetch_assoc();
 
-            echo "<div class='prihlaseni'><form action='' method='POST' enctype='multipart/form-data'>";
+            echo "<article class='prihlaseni'><form action='' method='POST' enctype='multipart/form-data'>";
             echo "<h1 class='nadpis_vedlejsi_stranka'>Uprava zboží</h1>";
 
 
@@ -146,7 +146,7 @@ if (isset($_GET['id'])) {
             </div>";
 
             echo "<input type='submit' name='sended' class='odeslani' value='odeslat'>";
-            echo "</form>";
+            echo "</form></article>";
         } else
             echo "Nejsou tu zadna jidla :-(((((";
     }

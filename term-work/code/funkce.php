@@ -256,9 +256,9 @@ function editaceZbozi() {
 
 
 
-            $sql = "UPDATE `zbozi` SET `nazev` = ?, `popis` = ?, `mnozstvi` = ?, `vyrobce_id` = ?, `kategorie_id` = ? WHERE `zbozi`.`idzbozi` = {$idZ}";
+            $sql = "UPDATE `zbozi` SET `nazev` = ?, `popis` = ?, `mnozstvi` = ?, `vyrobce_id` = ?, `kategorie_id` = ? WHERE `zbozi`.`idzbozi` = ?";
             if ($stmt = $db->prepare($sql)) {
-                $stmt->bind_param("ssiii", $nazev, $popis,$mnozstvi,$vyrobce,$kategorie);
+                $stmt->bind_param("ssiiii", $nazev, $popis,$mnozstvi,$vyrobce,$kategorie,$idZ);
                 $stmt->execute();
 
             }
@@ -409,7 +409,7 @@ function vypisZbozi(){
     $sql = "SELECT `zbozi`.`idzbozi` AS id,`zbozi`.`nazev`, (SELECT cena.cena FROM cena WHERE zbozi_id=`zbozi`.`idzbozi` ORDER BY cena.datum DESC LIMIT 1) AS cena , `zbozi`.`mnozstvi`, `zbozi`.popis
             FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` WHERE `zbozi`.`platnost`=1 GROUP BY `zbozi`.`nazev` ORDER BY $razeni $zpusob LIMIT $pocet, $naStranu";
 
-    echo "<div class='cl'>";
+    echo "<article class='cl'>";
     if ($data = $db->query($sql)) {
         if ($data->num_rows > 0) {
 
@@ -490,9 +490,9 @@ function vypisZbozi(){
 
 
                 echo"</div>";
-            }echo"</div>";
+            }echo"</article>";
 
-            echo"<div class='obalCisel'>";
+            echo"<section class='obalCisel'>";
 
             if (!isset($_GET["st"]))
                 $i = 1;
@@ -570,7 +570,7 @@ function vypisZbozi(){
                 
             }
 
-            echo "</div>";
+            echo "</section>";
         } else
             echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
     }
@@ -623,39 +623,6 @@ function vypisZboziMnozstvi(){
         echo "<p class='hlaska'>Není tu zboží.</p>";
     }
 }
-}
-        
-function sleva() {
-    $db = spojeni();
-    $nula=0;
-    if (isset($_POST["sended"])) {
-        if (empty($_POST["sleva"])&& $_POST["sleva"] != $nula) {
-            echo "<p class='hlaska'>Vyplň formulář</p>";
-        } else if($_POST["sleva"]==$nula) {
-            $sleva = 0;
-            $zbozi = $_POST["id_zbozi"];
-            $sql = "UPDATE zbozi SET sleva = ? WHERE id = ".$zbozi.";";
-            if ($stmt = $db->prepare($sql)) {
-                $stmt->bind_param("i", $sleva);
-                $stmt->execute();
-                $id = $stmt->insert_id;
-            }else{
-                echo "CHYBA";
-            }
-        }else{
-            $sleva = $_POST["sleva"];
-            $zbozi = $_POST["id_zbozi"];
-
-            $sql = "UPDATE zbozi SET sleva = ? WHERE id = ".$zbozi.";";
-            if ($stmt = $db->prepare($sql)) {
-                $stmt->bind_param("i", $sleva);
-                $stmt->execute();
-                $id = $stmt->insert_id;
-            }else{
-                echo "CHYBA";
-            }
-        }
-    }
 }
 
 function mnozstvi() {
@@ -720,7 +687,7 @@ FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` GROUP BY `zbozi
 
     if ($data = $db->query($sql)) {
         if ($data->num_rows > 0) {
-            echo "<div class='obalTable'><table class='table1'>";
+            echo "<article class='obalTable'><table class='table1'>";
             echo "<tr> <th><a href='upravaZbozi.php?r=n'>Název</a></th> <th><a href='upravaZbozi.php?r=c'>Cena</a></th>
     <th><a href='upravaZbozi.php?r=m'>Množství</a></th><th><a href='upravaZbozi.php?r=p'>Platnost</a></th> <th></th> <th></th></tr>";
 
@@ -755,7 +722,7 @@ FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` GROUP BY `zbozi
             }
 
 
-            echo "</table></div>";
+            echo "</table></article>";
         } else
             echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
     }
@@ -789,7 +756,7 @@ function vypisKategorieUprava() {
 
     if ($data = $db->query($sql)) {
         if ($data->num_rows > 0) {
-            echo "<div class='obalTable'><table class='table1'>";
+            echo "<article class='obalTable'><table class='table1'>";
             echo "<tr> <th>Název</th><th>Množství výskytů</th><th></th> <th></th></tr>";
 
             while ($row = $data->fetch_assoc()) {
@@ -815,7 +782,7 @@ function vypisKategorieUprava() {
             }
 
 
-            echo "</table></div>";
+            echo "</table></article>";
         } else
             echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
     }
@@ -849,7 +816,7 @@ function vypisVyrobceUprava() {
 
     if ($data = $db->query($sql)) {
         if ($data->num_rows > 0) {
-            echo "<div class='obalTable'><table class='table1'>";
+            echo "<article class='obalTable'><table class='table1'>";
             echo "<tr> <th>Název</th><th>ICO</th><th>Město, Adresa</th><th>Množství výskytů</th><th></th> <th></th></tr>";
 
             while ($row = $data->fetch_assoc()) {
@@ -875,7 +842,7 @@ function vypisVyrobceUprava() {
             }
 
 
-            echo "</table></div>";
+            echo "</table></article>";
         } else
             echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
     }
@@ -1022,7 +989,7 @@ GROUP BY `faktury`.`id`";
 
     if ($data = $db->query($sql)) {
         if ($data->num_rows > 0) {
-            echo "<div class='obalTable'><table class='table1'>";
+            echo "<article class='obalTable'><table class='table1'>";
             echo "<tr> <th>Číslo faktury</th> <th>Datum vytvoreni</th><th>Uživatel</th> <th>Cena</th> <th></th><th></th></tr>";
 
             while ($row = $data->fetch_assoc()) {
@@ -1046,7 +1013,7 @@ GROUP BY `faktury`.`id`";
             }
 
 
-            echo "</table></div>";
+            echo "</table></article>";
         } else
             echo "<h1 class='nadpis_vedlejsi_stranka'>Žádné rezervace</h1>";
     }
@@ -1076,7 +1043,7 @@ $i =0;
                 while ($row = $data->fetch_assoc()) {
                     if ($i==0){
                         $i=1;
-                        echo "<div class='obalTable'><table class='table1'>";
+                        echo "<article class='obalTable'><table class='table1'>";
                         echo "<p class='hlaska'>Číslo faktury: {$_GET['id']}</p><p class='hlaska'> Vytvoření: {$row['datum_vytvoreni']} Vydání: {$row['datum_vydani']}</p> 
                                     <p class='hlaska'>Odběratel: {$row['jmeno']} {$row['prijmeni']}</p>";
                         echo "<tr> <th>Výrobce</th> <th>Název produktu</th><th>Množství</th></tr>";
@@ -1086,7 +1053,7 @@ $i =0;
                 }
 
 
-                echo "</table></div>";
+                echo "</table></article>";
             } else
                 echo "<h1 class='nadpis_vedlejsi_stranka'>Žádné rezervace</h1>";
         }
@@ -1102,8 +1069,9 @@ function vydatZbozi()
             return;
         }
 
-        $sql = "UPDATE `faktury` SET `datum_vydani` = CURRENT_TIMESTAMP WHERE `faktury`.`id`= {$_GET['id']}";
+        $sql = "UPDATE `faktury` SET `datum_vydani` = CURRENT_TIMESTAMP WHERE `faktury`.`id`= ?";
         if ($stmt = $db->prepare($sql)) {
+            $stmt->bind_param("i", $_GET['id']);
             $stmt->execute();
         } else {
             echo "CHYBA";
@@ -1141,15 +1109,17 @@ function zrusitRezervaciZbozi()
             return;
         }
 
-        $sql = "DELETE FROM `objednavky` WHERE `objednavky`.`faktury_id` = {$_GET['id']}";
+        $sql = "DELETE FROM `objednavky` WHERE `objednavky`.`faktury_id` = ?";
         if ($stmt = $db->prepare($sql)) {
+            $stmt->bind_param("i", $_GET['id']);
             $stmt->execute();
         } else {
             echo "CHYBA";
         }
 
-        $sql = "DELETE FROM `faktury` WHERE `faktury`.`id`= {$_GET['id']}";
+        $sql = "DELETE FROM `faktury` WHERE `faktury`.`id`= ?";
         if ($stmt = $db->prepare($sql)) {
+            $stmt->bind_param("i", $_GET['id']);
             $stmt->execute();
         } else {
             echo "CHYBA";
@@ -1181,7 +1151,7 @@ GROUP BY `faktury`.`id`";
 
     if ($data = $db->query($sql)) {
         if ($data->num_rows > 0) {
-            echo "<div class='obalTable'><table class='table1'>";
+            echo "<article class='obalTable'><table class='table1'>";
             echo "<tr> <th>Číslo faktury</th> <th>Datum vytvoreni</th> <th>Datum vydání</th><th>Uživatel</th> <th>Cena</th> <th></th></tr>";
 
             while ($row = $data->fetch_assoc()) {
@@ -1203,7 +1173,7 @@ GROUP BY `faktury`.`id`";
             }
 
             echo "<tr><td colspan='5'></td><td><a href='historieRezervace.php?vd=true' class='a'><button class='tlacitko1'>To json</button></a></td></tr>";
-            echo "</table></div>";
+            echo "</table></article>";
         } else
             echo "<h1 class='nadpis_vedlejsi_stranka'>Žádné historie</h1>";
     }
@@ -1244,9 +1214,9 @@ function editKategorie() {
             $nazev = $_POST["nazev"];
 
 
-            $sql5 = "UPDATE `kategorie` SET `nazev` = ? WHERE `kategorie`.`idkategorie` = {$_GET['id']}";
+            $sql5 = "UPDATE `kategorie` SET `nazev` = ? WHERE `kategorie`.`idkategorie` = ?";
             if ($stmt = $db->prepare($sql5)) {
-                $stmt->bind_param("s", $nazev);
+                $stmt->bind_param("si", $nazev, $_GET['id']);
                 $stmt->execute();
 
                 header("Location:pridaniInfo.php");
@@ -1346,9 +1316,9 @@ function editVyrobce() {
             $ico = $_POST["ico"];
 
 
-            $sql5 = "UPDATE `vyrobce` SET `nazev` = ?, `mesto` = ?, `adresa` = ?, `ico` = ? WHERE `vyrobce`.`idvyrobce` = {$_GET['id']}";
+            $sql5 = "UPDATE `vyrobce` SET `nazev` = ?, `mesto` = ?, `adresa` = ?, `ico` = ? WHERE `vyrobce`.`idvyrobce` = ?";
             if ($stmt = $db->prepare($sql5)) {
-                $stmt->bind_param("sssi", $nazev, $mesto, $adresa, $ico);
+                $stmt->bind_param("sssii", $nazev, $mesto, $adresa, $ico,$_GET['id']);
                 $stmt->execute();
 
                 header("Location:pridaniInfo.php");
@@ -1368,8 +1338,9 @@ function smazVyrobce(){
             return;
         }
 
-        $sql = "DELETE FROM `vyrobce` WHERE idvyrobce= {$_GET['id']}";
+        $sql = "DELETE FROM `vyrobce` WHERE idvyrobce= ?";
         if ($stmt = $db->prepare($sql)) {
+            $stmt->bind_param("i", $_GET['id']);
             $stmt->execute();
         } else {
             echo "CHYBA";
@@ -1389,8 +1360,9 @@ function smazKategorie(){
             return;
         }
 
-        $sql = "DELETE FROM `kategorie` WHERE idkategorie= {$_GET['id']}";
+        $sql = "DELETE FROM `kategorie` WHERE idkategorie= ?";
         if ($stmt = $db->prepare($sql)) {
+            $stmt->bind_param("i", $_GET['id']);
             $stmt->execute();
         } else {
             echo "CHYBA";
@@ -1410,8 +1382,9 @@ function smazZbozi(){
             return;
         }
 
-        $sql = "UPDATE `zbozi` SET `platnost` = 0 WHERE `zbozi`.`idzbozi`= {$_GET['id']}";
+        $sql = "UPDATE `zbozi` SET `platnost` = 0 WHERE `zbozi`.`idzbozi`= ?";
         if ($stmt = $db->prepare($sql)) {
+            $stmt->bind_param("i", $_GET['id']);
             $stmt->execute();
             header("Location:upravaZbozi.php");
         } else {
@@ -1428,8 +1401,9 @@ function obnovZbozi(){
             return;
         }
 
-        $sql = "UPDATE `zbozi` SET `platnost` = 1 WHERE `zbozi`.`idzbozi`= {$_GET['id']}";
+        $sql = "UPDATE `zbozi` SET `platnost` = 1 WHERE `zbozi`.`idzbozi`= ?";
         if ($stmt = $db->prepare($sql)) {
+            $stmt->bind_param("i", $_GET['id']);
             $stmt->execute();
             header("Location:upravaZbozi.php");
         } else {
@@ -1495,7 +1469,7 @@ function vypisZboziSmazane(){
     $sql = "SELECT `zbozi`.`idzbozi` AS id,`zbozi`.`nazev`, (SELECT cena.cena FROM cena WHERE zbozi_id=`zbozi`.`idzbozi` ORDER BY cena.datum DESC LIMIT 1) AS cena , `zbozi`.`mnozstvi`, `zbozi`.popis
             FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` WHERE `zbozi`.`platnost`=0 GROUP BY `zbozi`.`nazev` ORDER BY $razeni $zpusob LIMIT $pocet, $naStranu";
 
-    echo "<div class='cl'>";
+    echo "<article class='cl'>";
     if ($data = $db->query($sql)) {
         if ($data->num_rows > 0) {
 
@@ -1553,18 +1527,18 @@ function vypisZboziSmazane(){
                                 <h1 class='name1'>Množství: {$mnozRez} kusů</h1>";
 
                 //Oříznutí popisu
-//                                $znak = strpos($row['popis'],'</p>');
-//                                if ($znak<150) {
-//                                echo substr($row['popis'], 0, $znak);
-//                                echo "...";
-//                                }else if(strlen($row['popis'])>=150){
-//                                echo substr($row['popis'], 0, 150);
-//                                echo "...";
-//                                }else{
-                echo"<p class='popisZbozi'>";
-                echo $row['popis'];
-                echo"</p>";
-//                                }
+                $znak = strpos($row['popis'],'</p>');
+                if ($znak<60) {
+                    echo substr($row['popis'], 0, $znak);
+                    //echo "...";
+                }else if(strlen($row['popis'])>=60){
+                    echo substr($row['popis'], 0, 60);
+                    echo "...";
+                }else{
+                    echo"<p class='popisZbozi'>";
+                    echo $row['popis'];
+                    echo"</p>";
+                }
 
                 echo"</div>";
                 /*if(!isset($_SESSION["login"])){
@@ -1575,9 +1549,9 @@ function vypisZboziSmazane(){
 
 
                 echo"</div>";
-            }echo"</div>";
+            }echo"</article>";
 
-            echo"<div class='obalCisel'>";
+            echo"<section class='obalCisel'>";
 
             if (!isset($_GET["st"]))
                 $i = 1;
@@ -1655,7 +1629,7 @@ function vypisZboziSmazane(){
 
             }
 
-            echo "</div>";
+            echo "</section>";
         } else
             echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
     }
@@ -1670,7 +1644,7 @@ function vypisUzivatelu() {
 
     if ($data = $db->query($sql)) {
         if ($data->num_rows > 0) {
-            echo "<div class='obalTable'><table class='table1'>";
+            echo "<article class='obalTable'><table class='table1'>";
             echo "<tr> <th>Jméno </th> <th>Přijmeni</th> <th>Email</th> <th>Platnost</th>  <th></th><th></th></tr>";
 
             while ($row = $data->fetch_assoc()) {
@@ -1696,13 +1670,52 @@ function vypisUzivatelu() {
             }
 
 
-            echo "</table></div>";
+            echo "</table></article>";
         } else
             echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
     }
 
 }
 
+function smazaniUzivatele(){
+    $db = spojeni();
+
+    if (isset($_GET['id'])) {
+        if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+            return;
+        }
+
+        $sql = "UPDATE `uzivatel` SET `platnost` = 0 WHERE id= ? AND opravneni=0";
+        if ($stmt = $db->prepare($sql)) {
+            $stmt->bind_param("i", $_GET['id']);
+            $stmt->execute();
+            header("Location:spravaUzivatel.php");
+        } else {
+            echo "CHYBA";
+        }
+    }
+
+}
+
+function obnoveniUzivatele(){
+    $db = spojeni();
+
+    if (isset($_GET['id'])) {
+        if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+            return;
+        }
+
+        $sql = "UPDATE `uzivatel` SET `platnost` = 1 WHERE id= ? AND opravneni=0";
+        if ($stmt = $db->prepare($sql)) {
+            $stmt->bind_param("i", $_GET['id']);
+            $stmt->execute();
+            header("Location:spravaUzivatel.php");
+        } else {
+            echo "CHYBA";
+        }
+    }
+
+}
 
 function editUdaju($id){
     $db = spojeni();
