@@ -1,6 +1,6 @@
 <?php
 @session_start();
-include "./funkce.php";
+include "./funkce/funkce.php";
 $db=spojeni();
 
 Menu();
@@ -8,6 +8,8 @@ opravneniU();
 if (isset($_GET['vd'])) {
     if ($_SESSION["opravneni"]==1){
         toJSON(-1);
+    }else{
+        toJSON($_SESSION['id']);
     }
 }
 

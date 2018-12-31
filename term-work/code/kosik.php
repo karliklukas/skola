@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "./funkce.php";
+include "./funkce/funkce.php";
 error_reporting(E_ERROR | E_PARSE);
 $db = spojeni();
 Menu();

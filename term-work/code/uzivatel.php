@@ -1,6 +1,6 @@
 <?php
 @session_start();
-include "./funkce.php";
+include "./funkce/funkce.php";
 $db=spojeni();
 opravneniU();
 Menu();
