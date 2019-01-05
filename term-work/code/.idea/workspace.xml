@@ -26,43 +26,43 @@
     <session id="1599921059">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="14" />
+          <entry key="project.closed" value="15" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.10" value="3" />
+          <entry key="project.open.time.10" value="4" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="2" />
           <entry key="project.open.time.9" value="4" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="7" />
           <entry key="html" value="1" />
-          <entry key="php" value="191" />
+          <entry key="php" value="193" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="7" />
           <entry key="HTML" value="1" />
-          <entry key="PHP" value="191" />
+          <entry key="PHP" value="193" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="645" />
-          <entry key="php" value="7602" />
+          <entry key="php" value="7972" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="645" />
-          <entry key="HTML" value="76" />
-          <entry key="PHP" value="7479" />
+          <entry key="HTML" value="78" />
+          <entry key="PHP" value="7847" />
           <entry key="SQL" value="47" />
         </counts>
       </usages-collector>
@@ -70,11 +70,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/funkce/funkce.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="613">
-              <caret line="328" column="25" selection-start-line="328" selection-start-column="25" selection-end-line="328" selection-end-column="25" />
+            <state relative-caret-position="119">
+              <caret line="557" column="24" selection-start-line="557" selection-start-column="24" selection-end-line="557" selection-end-column="24" />
               <folding>
                 <element signature="n#spojeni#0;n#!!top" />
                 <element signature="n#registrace#0;n#!!top" />
@@ -84,14 +84,21 @@
                 <element signature="n#opravneniU#0;n#!!top" />
                 <element signature="n#Menu#0;n#!!top" />
                 <element signature="n#pridaniZbozi#0;n#!!top" />
+                <element signature="n#editaceZbozi#0;n#!!top" />
+                <element signature="e#61#65#0" expanded="true" />
+                <element signature="e#65#69#0" expanded="true" />
+                <element signature="e#61#65#0" expanded="true" />
+                <element signature="e#65#69#0" expanded="true" />
+                <element signature="e#61#65#0" expanded="true" />
+                <element signature="e#65#69#0" expanded="true" />
                 <element signature="e#25#29#0" expanded="true" />
                 <element signature="e#29#33#0" expanded="true" />
                 <element signature="n#vypisZboziSleva#0;n#!!top" />
                 <element signature="n#vypisZboziMnozstvi#0;n#!!top" />
                 <element signature="n#mnozstvi#0;n#!!top" />
                 <element signature="n#vypisZboziUprava#0;n#!!top" />
-                <element signature="n#vypisKategorie#0;n#!!top" />
                 <element signature="n#vypisKategorieUprava#0;n#!!top" />
+                <element signature="n#vypisVyrobce#0;n#!!top" />
                 <element signature="n#vypisVyrobceUprava#0;n#!!top" />
                 <element signature="n#nahledZbozi#0;n#!!top" />
                 <element signature="n#rezervace#0;n#!!top" />
@@ -123,23 +130,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rezervace.php">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/zbozi.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+            <state relative-caret-position="663">
+              <caret line="39" column="63" lean-forward="true" selection-start-line="39" selection-start-column="63" selection-end-line="39" selection-end-column="63" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/zboziEditace.php">
+        <entry file="file://$PROJECT_DIR$/nahledZbozi.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="86" column="7" lean-forward="true" selection-start-line="86" selection-start-column="7" selection-end-line="86" selection-end-column="7" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="170">
+              <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -148,7 +152,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>preg</find>
       <find>div</find>
       <find>0-9</find>
       <find>upda</find>
@@ -178,6 +181,7 @@
       <find>article</find>
       <find>obalTable</find>
       <find>cena</find>
+      <find>kategor</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -202,7 +206,6 @@
         <option value="$PROJECT_DIR$/kosik.php" />
         <option value="$PROJECT_DIR$/prihlaseni.php" />
         <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/zbozi.php" />
         <option value="$PROJECT_DIR$/admin.php" />
         <option value="$PROJECT_DIR$/editaceKategorie.php" />
         <option value="$PROJECT_DIR$/editaceUzivatel.php" />
@@ -217,6 +220,7 @@
         <option value="$PROJECT_DIR$/zboziSmazane.php" />
         <option value="$PROJECT_DIR$/historieRezervace.php" />
         <option value="$PROJECT_DIR$/funkce/funkce.php" />
+        <option value="$PROJECT_DIR$/zbozi.php" />
       </list>
     </option>
   </component>
@@ -311,11 +315,12 @@
       <workItem from="1545921051240" duration="2000" />
       <workItem from="1546193728386" duration="4708000" />
       <workItem from="1546268858873" duration="6157000" />
+      <workItem from="1546717033443" duration="4595000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96462000" />
+    <option name="totallyTimeSpent" value="101057000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -329,7 +334,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15138593" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15298508" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -556,13 +561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nahledZbozi.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/podrobnosti.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -605,13 +603,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/zbozi.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/upravaZbozi.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -642,18 +633,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/zboziEditace.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="86" column="7" lean-forward="true" selection-start-line="86" selection-start-column="7" selection-end-line="86" selection-end-column="7" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="1462">
+          <caret line="86" column="7" selection-start-line="86" selection-start-column="7" selection-end-line="86" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nahledZbozi.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/funkce/funkce.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
-          <caret line="328" column="25" selection-start-line="328" selection-start-column="25" selection-end-line="328" selection-end-column="25" />
+        <state relative-caret-position="119">
+          <caret line="557" column="24" selection-start-line="557" selection-start-column="24" selection-end-line="557" selection-end-column="24" />
           <folding>
             <element signature="n#spojeni#0;n#!!top" />
             <element signature="n#registrace#0;n#!!top" />
@@ -663,14 +658,21 @@
             <element signature="n#opravneniU#0;n#!!top" />
             <element signature="n#Menu#0;n#!!top" />
             <element signature="n#pridaniZbozi#0;n#!!top" />
+            <element signature="n#editaceZbozi#0;n#!!top" />
+            <element signature="e#61#65#0" expanded="true" />
+            <element signature="e#65#69#0" expanded="true" />
+            <element signature="e#61#65#0" expanded="true" />
+            <element signature="e#65#69#0" expanded="true" />
+            <element signature="e#61#65#0" expanded="true" />
+            <element signature="e#65#69#0" expanded="true" />
             <element signature="e#25#29#0" expanded="true" />
             <element signature="e#29#33#0" expanded="true" />
             <element signature="n#vypisZboziSleva#0;n#!!top" />
             <element signature="n#vypisZboziMnozstvi#0;n#!!top" />
             <element signature="n#mnozstvi#0;n#!!top" />
             <element signature="n#vypisZboziUprava#0;n#!!top" />
-            <element signature="n#vypisKategorie#0;n#!!top" />
             <element signature="n#vypisKategorieUprava#0;n#!!top" />
+            <element signature="n#vypisVyrobce#0;n#!!top" />
             <element signature="n#vypisVyrobceUprava#0;n#!!top" />
             <element signature="n#nahledZbozi#0;n#!!top" />
             <element signature="n#rezervace#0;n#!!top" />
@@ -698,6 +700,13 @@
             <element signature="n#editHesla#0;n#!!top" />
             <element signature="n#toJSON#0;n#!!top" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/zbozi.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="63" lean-forward="true" selection-start-line="39" selection-start-column="63" selection-end-line="39" selection-end-column="63" />
         </state>
       </provider>
     </entry>

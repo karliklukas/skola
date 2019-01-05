@@ -367,8 +367,17 @@ function vypisZbozi(){
     } else {
         $strana = 1;
     }
+    if (isset($_GET['k'])) {
+        if (!preg_match("/^[1-9]+$/", $_GET['k'])) {
+            $kategorie = "`zbozi`.`kategorie_id`";
+        }else{
+            $kategorie=$_GET['k'];
+        }
+    }else{
+        $kategorie = "`zbozi`.`kategorie_id`";
+    }
     $naStranu = 6;
-    $pocetStranData = "SELECT COUNT(*) FROM `zbozi` WHERE `zbozi`.`platnost`=1";
+    $pocetStranData = "SELECT COUNT(*) FROM `zbozi` WHERE `zbozi`.`platnost`=1 AND `zbozi`.`kategorie_id`={$kategorie}";
     $dataS = mysqli_query($db, $pocetStranData);
     $stran = mysqli_fetch_array($dataS);
     $pocet = ($strana - 1) * $naStranu;
@@ -408,9 +417,8 @@ function vypisZbozi(){
     }
 
 
-
-    $sql = "SELECT `zbozi`.`idzbozi` AS id,`zbozi`.`nazev`, (SELECT cena.cena FROM cena WHERE zbozi_id=`zbozi`.`idzbozi` ORDER BY cena.datum DESC LIMIT 1) AS cena , `zbozi`.`mnozstvi`, `zbozi`.popis
-            FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` WHERE `zbozi`.`platnost`=1 GROUP BY `zbozi`.`nazev` ORDER BY $razeni $zpusob LIMIT $pocet, $naStranu";
+    $sql = "SELECT `zbozi`.`idzbozi` AS id,`zbozi`.`nazev`, (SELECT cena.cena FROM cena WHERE zbozi_id=`zbozi`.`idzbozi` ORDER BY cena.datum DESC LIMIT 1) AS cena , `zbozi`.`mnozstvi`, `zbozi`.popis,`kategorie`.`nazev` AS kat, `vyrobce`.`nazev` AS vyr
+            FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` JOIN `kategorie` ON `kategorie`.`idkategorie`=`zbozi`.`kategorie_id` JOIN `vyrobce` ON `vyrobce`.`idvyrobce`=`zbozi`.`vyrobce_id` WHERE `zbozi`.`platnost`=1 AND `zbozi`.`kategorie_id`={$kategorie} GROUP BY `zbozi`.`nazev` ORDER BY $razeni $zpusob LIMIT $pocet, $naStranu";
 
     echo "<article class='cl'>";
     if ($data = $db->query($sql)) {
@@ -455,9 +463,9 @@ function vypisZbozi(){
                 }
 
                 echo" <div class='cln1'>
-                                <h1 class='name'>{$row['nazev']}</h1>
-                                <h1 class='name1'>Cena: {$row['cena']} Kč</h1>
-                                <h1 class='name1'>Množství: {$mnozRez} kusů</h1>";
+                                <h1 class='name'>{$row['vyr']} {$row['nazev']}</h1>
+                                <h1 class='name1'>Cena: {$row['cena']} Kč, Množství: {$mnozRez} kusů</h1>
+                                <h1 class='name1'>kategorie: {$row['kat']}</h1>";
 
                 //Oříznutí popisu
 
@@ -502,8 +510,12 @@ function vypisZbozi(){
             }
 
             if ($i > 1) {
-                if(isset($_GET['r'])){
-                    echo "<a href='zbozi.php?st=1&r=" . ($_GET['r']) . "'>&lt;&lt; </a>";
+                if((isset($_GET['r'])) && (isset($_GET['k']))){
+                    echo "<a href='zbozi.php?st=1&r={$_GET['r']}&k={$_GET['k']}'>&lt;&lt; </a>";
+                }else if(isset($_GET['k'])){
+                    echo "<a href='zbozi.php?st=1&k={$_GET['k']}'>&lt;&lt; </a>";
+                }else if(isset($_GET['r'])){
+                    echo "<a href='zbozi.php?st=1&r={$_GET['r']}'>&lt;&lt; </a>";
                 }else {
                     echo "<a href='zbozi.php?st=1'>&lt;&lt; </a>";
                 }                
@@ -511,15 +523,23 @@ function vypisZbozi(){
 
 // PŘEDCHOZÍ
             if ($i > 1) {
-                if(isset($_GET['r'])){
-                echo "<a class='stranky'  href='zbozi.php?st=" . ($i - 1) . "&r=" . ($_GET['r']) . "'> &lt; </a>";
+                if((isset($_GET['r'])) && (isset($_GET['k']))){
+                    echo "<a class='stranky'  href='zbozi.php?st=" . ($i - 1) . "&r=" . ($_GET['r']) . "&k=" . ($_GET['k']) . "'> &lt; </a>";
+                }else if(isset($_GET['k'])){
+                    echo "<a class='stranky'  href='zbozi.php?st=" . ($i - 1) . "&k=" . ($_GET['k']) . "'> &lt; </a>";
+                }else if(isset($_GET['r'])){
+                    echo "<a class='stranky'  href='zbozi.php?st=" . ($i - 1) . "&r=" . ($_GET['r']) . "'> &lt; </a>";
                 }else {
                     echo "<a class='stranky'  href='zbozi.php?st=" . ($i - 1) . "'> &lt; </a>";
                     }
 // PŘEDCHOZÍ - CYKLUS
                 for ($j = 4; $j > 0; $j--) {
                     if (($i - $j) >= 1) {
-                        if(isset($_GET['r'])){
+                        if((isset($_GET['r'])) && (isset($_GET['k']))){
+                            echo "<a class='stranky' href='zbozi.php?st=" . ($i - $j) . "&r=" . ($_GET['r']) . "&k=" . ($_GET['k']) . "'>" . ($i - $j) . "</a>";
+                        }else if(isset($_GET['k'])){
+                            echo "<a class='stranky' href='zbozi.php?st=" . ($i - $j) . "&k=" . ($_GET['k']) . "'>" . ($i - $j) . "</a>";
+                        }else if(isset($_GET['r'])){
                             echo "<a class='stranky' href='zbozi.php?st=" . ($i - $j) . "&r=" . ($_GET['r']) . "'>" . ($i - $j) . "</a>";
                         }else{
                             echo "<a class='stranky' href='zbozi.php?st=" . ($i - $j) . "'>" . ($i - $j) . "</a>";
@@ -535,7 +555,11 @@ function vypisZbozi(){
                 // DALŠÍ - CYKLUS
                 for ($m = 1; $m < 4; $m++) {
                     if (($i + $m) <= ceil($pocetStran)) {
-                        if(isset($_GET['r'])){
+                        if((isset($_GET['r'])) && (isset($_GET['k']))){
+                            echo "<a class='stranky' href='zbozi.php?st=" . ($i + $m) . "&r=" . ($_GET['r']) . "&k=" . ($_GET['k']) . "'>" . ($i + $m) . "</a>";
+                        }else if(isset($_GET['k'])){
+                            echo "<a class='stranky' href='zbozi.php?st=" . ($i + $m) . "&k=" . ($_GET['k']) . "'>" . ($i + $m) . "</a>";
+                        }else if(isset($_GET['r'])){
                             echo "<a class='stranky' href='zbozi.php?st=" . ($i + $m) . "&r=" . ($_GET['r']) . "'>" . ($i + $m) . "</a>";
                         }else {
                              echo "<a class='stranky' href='zbozi.php?st=" . ($i + $m) . "'>" . ($i + $m) . "</a>";
@@ -544,7 +568,11 @@ function vypisZbozi(){
                 }
 
 // DALŠÍ        
-                if(isset($_GET['r'])){
+                if((isset($_GET['r'])) && (isset($_GET['k']))){
+                    echo "<a class='stranky' href='zbozi.php?st=" . ($i + 1) . "&r=" . ($_GET['r']) . "&k=" . ($_GET['k']) . "'> &gt; </a>";
+                }else if(isset($_GET['k'])){
+                    echo "<a class='stranky' href='zbozi.php?st=" . ($i + 1) . "&k=" . ($_GET['k']) . "'> &gt; </a>";
+                }else if(isset($_GET['r'])){
                     echo "<a class='stranky' href='zbozi.php?st=" . ($i + 1) . "&r=" . ($_GET['r']) . "'> &gt; </a>";
                 }else {
                     echo "<a class='stranky' href='zbozi.php?st=" . ($i + 1) . "'> &gt; </a>";
@@ -555,7 +583,11 @@ function vypisZbozi(){
 
 // KONEC
             if ($i < ceil($pocetStran)) {
-                if(isset($_GET['r'])){
+                if((isset($_GET['r'])) && (isset($_GET['k']))){
+                    echo "<a class='stranky' href='zbozi.php?st=" . ceil($pocetStran) . "&r=" . ($_GET['r']) . "&k=" . ($_GET['k']) . "'> &gt;&gt;</a>";
+                }else if(isset($_GET['k'])){
+                    echo "<a class='stranky' href='zbozi.php?st=" . ceil($pocetStran) . "&k=" . ($_GET['k']) . "'> &gt;&gt;</a>";
+                }else if(isset($_GET['r'])){
                     echo "<a class='stranky' href='zbozi.php?st=" . ceil($pocetStran) . "&r=" . ($_GET['r']) . "'> &gt;&gt;</a>";
                 }else{
                     echo "<a class='stranky' href='zbozi.php?st=" . ceil($pocetStran) . "'> &gt;&gt;</a>";
@@ -850,8 +882,8 @@ function nahledZbozi()
             return;
         }
 
-        $sql = "SELECT `zbozi`.`idzbozi` AS id,`zbozi`.`nazev`, (SELECT cena.cena FROM cena WHERE zbozi_id=`zbozi`.`idzbozi` ORDER BY cena.datum DESC LIMIT 1) AS cena , `zbozi`.`mnozstvi`, `zbozi`.popis
-            FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` WHERE `zbozi`.`idzbozi`={$_GET['id']} GROUP BY `zbozi`.`nazev`";
+        $sql = "SELECT `zbozi`.`idzbozi` AS id,`zbozi`.`nazev`, (SELECT cena.cena FROM cena WHERE zbozi_id=`zbozi`.`idzbozi` ORDER BY cena.datum DESC LIMIT 1) AS cena , `zbozi`.`mnozstvi`, `zbozi`.popis, `kategorie`.`nazev` AS kat, `vyrobce`.`nazev` AS vyr
+            FROM `zbozi` JOIN `cena` ON `zbozi`.`idzbozi`= `cena`.`zbozi_id` JOIN `kategorie` ON `kategorie`.`idkategorie`=`zbozi`.`kategorie_id` JOIN `vyrobce` ON `vyrobce`.`idvyrobce`=`zbozi`.`vyrobce_id` WHERE `zbozi`.`idzbozi`={$_GET['id']} GROUP BY `zbozi`.`nazev`";
 
 
         if ($data = $db->query($sql)) {
@@ -898,7 +930,9 @@ function nahledZbozi()
                     echo " <div>
                 <h1 class='name'>{$row['nazev']}</h1>
                 <h1 class='name1'>Cena: {$row['cena']} Kč</h1>
-                <h1 class='name1'>Množství: {$mnozRez} kusů</h1>";
+                <h1 class='name1'>Množství: {$mnozRez} kusů</h1>
+                <h1 class='name1'>Výrobce: {$row['vyr']}</h1>
+                <h1 class='name1'>Kategorie: {$row['kat']}</h1>";
 
 
                     echo "<p class='popisZbozi'>";
