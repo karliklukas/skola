@@ -597,7 +597,7 @@ function vypisZbozi(){
 
             echo "</section>";
         } else
-            echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p>";
+            echo "<p class='hlaska'>Omlouváme se, ale chybí nám tu zbozi.</p></article>";
     }
 }
 
@@ -1127,6 +1127,29 @@ WHERE objednavky.faktury_id={$_GET['id']}";
     }
 }
 
+function vyfakturovat()
+{
+    $db = spojeni();
+
+    if (isset($_GET['id'])) {
+        if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+            return;
+        }
+
+        $sql = "UPDATE `faktury` SET `vyFak` = 1 WHERE `faktury`.`id`= ?";
+        if ($stmt = $db->prepare($sql)) {
+            $stmt->bind_param("i", $_GET['id']);
+            $stmt->execute();
+        } else {
+            echo "CHYBA";
+        }
+
+        header("Location:historieRezervace.php");
+
+
+    }
+}
+
 function zrusitRezervaciZbozi()
 {
     $db = spojeni();
@@ -1162,12 +1185,12 @@ function vypisHistorieRezervaci($op) {
     $db = spojeni();
 
 if ($op == -1){
-    $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena
+    $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena,`faktury`.`vyFak`
 FROM `faktury`JOIN `objednavky` ON faktury.id=objednavky.faktury_id JOIN `cena` ON objednavky.cena_id=cena.id JOIN `uzivatel` ON `uzivatel`.`id`=`faktury`.`uzivatel_id`
 WHERE `faktury`.`datum_vydani` IS NOT NULL
 GROUP BY `faktury`.`id`";
 }else{
-    $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena
+    $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena,`faktury`.`vyFak`
 FROM `faktury`JOIN `objednavky` ON faktury.id=objednavky.faktury_id JOIN `cena` ON objednavky.cena_id=cena.id JOIN `uzivatel` ON `uzivatel`.`id`=`faktury`.`uzivatel_id`
 WHERE `faktury`.`datum_vydani` IS NOT NULL AND `uzivatel`.`id`={$op}
 GROUP BY `faktury`.`id`";
@@ -1193,10 +1216,14 @@ GROUP BY `faktury`.`id`";
                 }
 
 
-                echo "<tr><td>{$row['id']}</td>  <td>{$row['datum_vytvoreni']}</td> <td>{$row['datum_vydani']}</td> <td>{$row['jmeno']} {$row['prijmeni']}</td> <td>{$cenaCelkem} Kc</td>
-                        <td><a href='podrobnosti.php?id={$row['id']}'>Podrobnosti</a></td>
-                      </tr>";
-
+                echo "<tr><td>{$row['id']} ".($row["vyFak"]==1?"Vyfakturovano":"")."</td>  <td>{$row['datum_vytvoreni']}</td> <td>{$row['datum_vydani']}</td> 
+                        <td>{$row['jmeno']} {$row['prijmeni']}</td> <td>{$cenaCelkem} Kc</td>";
+                if ($op == -1 && $row["vyFak"]==0) {
+                    echo "<td><a href='podrobnosti.php?id={$row['id']}'>Podrobnosti</a> <a href='historieRezervace.php?fk=true&id={$row['id']}'>Fakturace</a></td>";
+                } else{
+                    echo "<td><a href='podrobnosti.php?id={$row['id']}'>Podrobnosti</a></td>";
+                }
+                echo "</tr>";
             }
 
             echo "<tr><td colspan='5'></td><td><a href='historieRezervace.php?vd=true' class='a'><button class='tlacitko1'>To json</button></a></td></tr>";
@@ -1204,7 +1231,6 @@ GROUP BY `faktury`.`id`";
         } else
             echo "<h1 class='nadpis_vedlejsi_stranka'>Žádné historie</h1>";
     }
-
 }
 
 function pridatKategorie() {
@@ -1797,12 +1823,12 @@ function editHesla($id){
 function toJSON($op){
     $db = spojeni();
     if ($op == -1){
-        $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena
+        $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena,`faktury`.`vyFak`
 FROM `faktury`JOIN `objednavky` ON faktury.id=objednavky.faktury_id JOIN `cena` ON objednavky.cena_id=cena.id JOIN `uzivatel` ON `uzivatel`.`id`=`faktury`.`uzivatel_id`
 WHERE `faktury`.`datum_vydani` IS NOT NULL
 GROUP BY `faktury`.`id`";
     }else{
-        $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena
+        $sql = "SELECT `faktury`.`id`, `faktury`.`datum_vytvoreni`, `faktury`.`datum_vydani`, `uzivatel`.`jmeno`, `uzivatel`.`prijmeni`, SUM(`cena`.`cena`) AS cena,`faktury`.`vyFak`
 FROM `faktury`JOIN `objednavky` ON faktury.id=objednavky.faktury_id JOIN `cena` ON objednavky.cena_id=cena.id JOIN `uzivatel` ON `uzivatel`.`id`=`faktury`.`uzivatel_id`
 WHERE `faktury`.`datum_vydani` IS NOT NULL AND `uzivatel`.`id`={$op}
 GROUP BY `faktury`.`id`";
@@ -1826,13 +1852,11 @@ GROUP BY `faktury`.`id`";
                 $pole[] = $row;
 
             }
+
             $pole1 = json_encode($pole, JSON_UNESCAPED_UNICODE);
             //var_dump($pole1);
             $adresa = './uploads/historie.json';
             file_put_contents($adresa,$pole1);
-
-            //$file = './images/array.json';
-
 
 
             if(file_exists($adresa)) {

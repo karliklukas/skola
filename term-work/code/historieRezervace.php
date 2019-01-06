@@ -12,6 +12,12 @@ if (isset($_GET['vd'])) {
         toJSON($_SESSION['id']);
     }
 }
+if (isset($_GET['fk'])) {
+    if ($_SESSION["opravneni"]==1){
+        vyfakturovat();
+    }
+}
+
 
 ?>
 

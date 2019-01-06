@@ -27,7 +27,7 @@ Menu();
             {
                 echo"<br>";
                 echo "<select id='kat' name='id_kat' class='select' onchange='selectChange()'>";
-                echo "<option value=''>Vyber kategorie</option>";
+                echo "<option value=''>Vše</option>";
                 while($row = $data->fetch_assoc())
                 {
                     if(isset($_GET['k'])){

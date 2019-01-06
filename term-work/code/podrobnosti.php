@@ -10,7 +10,7 @@ if ($_SESSION["opravneni"]==1){
     vypisRezervaciPodrobnosti();
 }else {
     if (isset($_GET['id'])) {
-        if (!preg_match("/^[0-9]+$/", $_GET['id'])) {
+        if (preg_match("/^[0-9]+$/", $_GET['id'])) {
             $sqlC = "select * from faktury where uzivatel_id='{$_SESSION["id"]}' AND id={$_GET['id']}";
             if ($dataC = $db->query($sqlC)) {
                 if ($dataC->num_rows > 0) {
