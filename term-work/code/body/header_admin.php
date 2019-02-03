@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./css/css.css" type="text/css">
+        <link rel=stylesheet href="./css/tisk.css" media="print">
         <link rel="icon" href="./images/logo.png">
     </head>
     <body>

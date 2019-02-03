@@ -1,0 +1,23 @@
+header{
+    display: none;
+}
+.tlacitko2, .tlacitko1{
+    display: none;
+}
+select{
+    display: none;
+}
+#baner{
+    display: none;
+}
+.obalcisel{
+    display: none;
+}
+.footer{
+    display: none;
+}
+.article{
+    width: 35vw;
+    height: 70vw;
+    text-align: left;
+}
